@@ -2,7 +2,7 @@ import { Head } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import type { BreadcrumbItem } from '@/types';
-import StatisticsCardPreview from './dashboard-components/summary-component';
+import StatisticsCardPreview from './dashboard-components/summary';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -11,7 +11,19 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Dashboard() {
+interface SummaryProps {
+    users: number;
+    students: number;
+    teachers: number;
+    departments: number;
+}
+
+export default function Dashboard({
+    users,
+    students,
+    teachers,
+    departments,
+}: SummaryProps) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
@@ -22,7 +34,12 @@ export default function Dashboard() {
                 </div>
                 <div>
                     {' '}
-                    <StatisticsCardPreview />
+                    <StatisticsCardPreview
+                        userCount={users}
+                        studentCount={students}
+                        teacherCount={teachers}
+                        departmentCount={departments}
+                    />
                 </div>
             </div>
         </AppLayout>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Department;
 
 class DashboardController extends Controller
 {
@@ -12,10 +13,17 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $user = User::find();
-        $user->load('student', 'teacher');
-        return inertia('dashboard-components/', [
-            'user' => $user
+        $users = User::count();
+        $teachers = User::role('teacher')->count();
+        $students = User::role('student')->count();
+        $departments = Department::count();
+
+
+        return inertia('dashboard', [
+            'users' => $users,
+            'teachers' => $teachers,
+            'students' => $students,
+            'departments' => $departments
         ]);
     }
 

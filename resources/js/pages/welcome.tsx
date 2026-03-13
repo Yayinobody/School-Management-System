@@ -14,7 +14,6 @@ export default function Welcome({
     canRegister?: boolean;
 }) {
     const { auth } = usePage().props as any;
-    const brandColor = 'rgba(13, 202, 240, 1)';
 
     return (
         <>
@@ -33,10 +32,7 @@ export default function Welcome({
                             alt="NORSU Logo"
                             className="h-12 w-auto object-contain"
                         />
-                        <span
-                            className="text tracking-tigh text-xl font-bold uppercase"
-                            style={{ color: brandColor }}
-                        >
+                        <span className="text tracking-tigh text-xl font-bold text-brand uppercase">
                             NORSU{' '}
                             <span className="font-light text-gray-500">
                                 Portal
@@ -62,8 +58,7 @@ export default function Welcome({
                                 {canRegister && (
                                     <Link
                                         href={register()}
-                                        className="rounded px-6 py-2 text-sm font-bold text-white shadow-lg shadow-cyan-500/20 transition-transform hover:scale-105 active:scale-95"
-                                        style={{ backgroundColor: brandColor }}
+                                        className="rounded bg-brand px-6 py-2 text-sm font-bold text-white shadow-lg shadow-cyan-500/20 transition-transform hover:scale-105 active:scale-95"
                                     >
                                         Create Account
                                     </Link>
@@ -79,7 +74,7 @@ export default function Welcome({
                     <div className="mb-20 max-w-5xl">
                         <h1 className="mb-8 text-4xl leading-tight font-bold tracking-tight lg:text-6xl">
                             Integrated Academic <br />
-                            <span style={{ color: brandColor }}>
+                            <span className="text-brand">
                                 Management Environment
                             </span>
                         </h1>
@@ -94,12 +89,7 @@ export default function Welcome({
                     <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
                         {/* Administrative Module */}
                         <RoleModule
-                            icon={
-                                <ShieldCheck
-                                    size={32}
-                                    style={{ color: brandColor }}
-                                />
-                            }
+                            icon={<ShieldCheck size={32} />}
                             title="Administrative Services"
                             description="Oversee institutional architecture, manage user credentials, and govern departmental hierarchies."
                             points={[
@@ -111,12 +101,7 @@ export default function Welcome({
 
                         {/* Faculty Module */}
                         <RoleModule
-                            icon={
-                                <GraduationCap
-                                    size={32}
-                                    style={{ color: brandColor }}
-                                />
-                            }
+                            icon={<GraduationCap size={32} />}
                             title="Faculty Portal"
                             description="Facilitate academic excellence through grade computation, curriculum delivery, and student monitoring."
                             points={[
@@ -128,12 +113,7 @@ export default function Welcome({
 
                         {/* Student Module */}
                         <RoleModule
-                            icon={
-                                <BookOpen
-                                    size={32}
-                                    style={{ color: brandColor }}
-                                />
-                            }
+                            icon={<BookOpen size={32} />}
                             title="Student Services"
                             description="Access essential academic resources, fulfill enrollment requirements, and monitor scholastic progress."
                             points={[
@@ -173,7 +153,7 @@ export default function Welcome({
 function RoleModule({ icon, title, description, points }) {
     return (
         <div className="group flex flex-col rounded-lg border border-gray-100 bg-white p-8 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-cyan-500/5 dark:border-[#1e1e1e] dark:bg-[#111]">
-            <div className="mb-6 w-fit rounded-lg bg-gray-50 p-3 transition-colors group-hover:bg-cyan-50 dark:bg-[#161616] dark:group-hover:bg-cyan-950/20">
+            <div className="brand mb-6 w-fit rounded-lg bg-gray-50 p-3 transition-colors group-hover:bg-cyan-50 dark:group-hover:bg-cyan-950/20">
                 {icon}
             </div>
             <h3 className="mb-4 text-lg font-bold">{title}</h3>
