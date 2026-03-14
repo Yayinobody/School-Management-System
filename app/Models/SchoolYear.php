@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SchoolYear extends Model
 {
-    protected $fillable = ["name", "start_date", "end_date", "status"];
+    protected $fillable = [ "start_date", "end_date", "status"];
 
     protected $casts = [
         "start_date" => "date",

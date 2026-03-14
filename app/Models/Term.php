@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Term extends Model
 {
     protected $fillable = [
-        "name",
         "school_year_id",
         "semester",
         "start_date",

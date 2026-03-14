@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SchoolYear;
+use App\Models\Term;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Enrollment;
@@ -20,14 +22,19 @@ class DashboardController extends Controller
         $teachers = User::role('teacher')->count();
 
         $enrollmentByProgram = Program::select('code')->withCount('enrollments')->get()->toArray();
-        dd($enrollmentByProgram);
+
+        $activeSchoolYear = SchoolYear::where('status','active')->first(['start_date','end_date'])->toArray();
+        $activeTerm = Term::where('status', 'active')->first('semester')->toArray();
 
         return inertia (
         'dashboard', [
             'students'=>$students,
             'enrollments'=> $enrollments,
             'sections'=> $sections,
-            'teachers'=>$teachers
+            'teachers'=>$teachers,
+            'enrollmentByPrograms'=>$enrollmentByProgram,
+            'activeSchoolYear'=>$activeSchoolYear,
+            'activeTerm'=>$activeTerm
         ]);
     }
 

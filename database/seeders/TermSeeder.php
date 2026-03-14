@@ -5,6 +5,9 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Term;
 use App\Models\SchoolYear;
+use App\Enums\Semester;
+use App\Enums\TermStatus;
+use Carbon\Carbon;
 
 class TermSeeder extends Seeder
 {
@@ -15,17 +18,28 @@ class TermSeeder extends Seeder
         Term::insert([
             [
                 'school_year_id' => $schoolYear->id,
-                'name' => '1st Semester',
-                'start_date' => $schoolYear->start_date,
-                'end_date' => $schoolYear->start_date->addMonths(5),
+                'semester' => Semester::First->value,
+                'start_date' => Carbon::parse('2025-08-18'),
+                'end_date' => Carbon::parse('2025-12-20'),
+                'status' => TermStatus::Inactive->value,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'school_year_id' => $schoolYear->id,
-                'name' => '2nd Semester',
-                'start_date' => $schoolYear->start_date->addMonths(6),
-                'end_date' => $schoolYear->end_date,
+                'semester' => Semester::Second->value,
+                'start_date' => Carbon::parse('2026-01-26'),
+                'end_date' => Carbon::parse('2026-05-23'),
+                'status' => TermStatus::Active->value,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'school_year_id' => $schoolYear->id,
+                'semester' => Semester::Summer->value,
+                'start_date' => Carbon::parse('2026-05-25'),
+                'end_date' => Carbon::parse('2026-07-26'),
+                'status' => TermStatus::Inactive->value,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

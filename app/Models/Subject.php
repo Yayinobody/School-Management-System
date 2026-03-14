@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -29,6 +30,11 @@ class Subject extends Model
 
     public function program(): BelongsToMany
     {
-        return $this->belongsToMany(Program::class)->withTimestamps();
+        return $this->belongsToMany(Program::class, 'program_subjects');
+    }
+
+    public function teachers(): BelongsToMany
+    {
+        return $this->belongsToMany(Teacher::class, 'teacher_subjects');
     }
 }

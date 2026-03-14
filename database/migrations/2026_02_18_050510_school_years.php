@@ -14,7 +14,6 @@ return new class extends Migration
     {
     Schema::create('school_years', function (Blueprint $table) {
         $table->id();
-        $table->string('name');
         $table->date('start_date');
         $table->date('end_date');
         $table->enum('status', array_column(SchoolYearStatus::cases(), 'value'));
