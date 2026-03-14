@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Department;
+use App\Models\Enrollment;
+use App\Models\Section;
 
 class DashboardController extends Controller
 {
@@ -13,17 +14,17 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $users = User::count();
-        $teachers = User::role('teacher')->count();
         $students = User::role('student')->count();
-        $departments = Department::count();
+        $enrollments = Enrollment::count();
+        $sections = Section::count();
+        $teachers = User::role('teacher')->count();
 
-
-        return inertia('dashboard', [
-            'users' => $users,
-            'teachers' => $teachers,
-            'students' => $students,
-            'departments' => $departments
+        return inertia (
+        'dashboard', [
+            'students'=>$students,
+            'enrollments'=> $enrollments,
+            'sections'=> $sections,
+            'teachers'=>$teachers
         ]);
     }
 

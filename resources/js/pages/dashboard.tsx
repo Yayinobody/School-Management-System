@@ -1,4 +1,5 @@
 import { Head } from '@inertiajs/react';
+import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import type { BreadcrumbItem } from '@/types';
@@ -12,17 +13,17 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 interface SummaryProps {
-    users: number;
     students: number;
+    enrollments: number;
+    sections: number;
     teachers: number;
-    departments: number;
 }
 
 export default function Dashboard({
-    users,
     students,
+    enrollments,
+    sections,
     teachers,
-    departments,
 }: SummaryProps) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -35,12 +36,13 @@ export default function Dashboard({
                 <div>
                     {' '}
                     <StatisticsCardPreview
-                        userCount={users}
                         studentCount={students}
+                        enrollmentCount={enrollments}
+                        sectionCount={sections}
                         teacherCount={teachers}
-                        departmentCount={departments}
                     />
                 </div>
+                <PlaceholderPattern />
             </div>
         </AppLayout>
     );

@@ -8,40 +8,40 @@ import {
 import StatisticsCard from '@/components/statistics-card';
 
 interface StatisticsCardPreviewProps {
-    userCount: number;
     studentCount: number;
+    enrollmentCount: number;
+    sectionCount: number;
     teacherCount: number;
-    departmentCount: number;
 }
 const StatisticsCardPreview = ({
-    userCount,
     studentCount,
+    enrollmentCount,
+    sectionCount,
     teacherCount,
-    departmentCount,
 }: StatisticsCardPreviewProps) => {
     const StatisticsCardData = [
         {
             icon: <User2Icon className="size-4" />,
-            value: userCount.toString(),
-            title: 'Users',
+            value: studentCount.toString(),
+            title: 'Students',
             changePercentage: '+18.2%',
         },
         {
             icon: <UserCircle2Icon className="size-4" />,
-            value: studentCount.toString(),
-            title: 'Students',
+            value: enrollmentCount.toString(),
+            title: 'Enrollments',
             changePercentage: '-8.7%',
         },
         {
             icon: <UserCogIcon className="size-4" />,
-            value: teacherCount.toString(),
-            title: 'Teachers',
+            value: sectionCount.toString(),
+            title: 'Sections',
             changePercentage: '+4.3%',
         },
         {
             icon: <Clock8Icon className="size-4" />,
-            value: departmentCount.toString(),
-            title: 'Departments',
+            value: teacherCount.toString(),
+            title: 'Teachers',
             changePercentage: '-2.5%',
         },
     ];
