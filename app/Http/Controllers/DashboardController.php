@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Enrollment;
 use App\Models\Section;
-
+use App\Models\Program;
 class DashboardController extends Controller
 {
     /**
@@ -18,6 +18,9 @@ class DashboardController extends Controller
         $enrollments = Enrollment::count();
         $sections = Section::count();
         $teachers = User::role('teacher')->count();
+
+        $enrollmentByProgram = Program::select('code')->withCount('enrollments')->get()->toArray();
+        dd($enrollmentByProgram);
 
         return inertia (
         'dashboard', [

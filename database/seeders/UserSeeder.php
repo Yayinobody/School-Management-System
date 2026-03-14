@@ -20,9 +20,9 @@ class UserSeeder extends Seeder
         $teacherRole = Role::where('name', 'teacher')->first();
         $adminRole = Role::where('name', 'admin')->first();
 
-        User::factory(10)->create()->each(function ($user) use ($studentRole, $teacherRole) {
+        User::factory(50)->create()->each(function ($user) use ($studentRole, $teacherRole) {
 
-            $isStudent = rand(0,1) === 1;
+            $isStudent = rand(1, 100) > 10;
 
             if ($isStudent) {
                 $user->assignRole($studentRole);

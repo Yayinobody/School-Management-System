@@ -27,6 +27,6 @@ class Program extends Model
 
     public function subjects(): BelongsToMany
     {
-        return $this->belongsToMany(Subject::class)->withTimestamps();
+        return $this->belongsToMany(Subject::class);
     }
 }

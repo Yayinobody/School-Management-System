@@ -22,11 +22,11 @@ const mainNavItems: NavItem[] = [
         href: dashboard(),
         icon: LayoutGrid,
     },
-    {
-        title: 'Users',
-        href: '/users',
-        icon: User,
-    },
+    // {
+    //     title: 'Users',
+    //     href: '/users',
+    //     icon: User,
+    // },
 ];
 
 const footerNavItems: NavItem[] = [
