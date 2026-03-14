@@ -21,6 +21,7 @@ class EnrollmentSeeder extends Seeder
                 'student_id' => $student->id,
                 'program_id' => $programs->random(),
                 'term_id' => $term->id,
+                'status' => 'enrolled',
             ]);
         }
     }

@@ -28,7 +28,7 @@ export default function Welcome({
                 <header className="flex items-center justify-between border-b border-gray-100 px-8 py-5 lg:px-24 dark:border-[#1e1e1e]">
                     <div className="group flex cursor-default items-center gap-2">
                         <img
-                            src="/norsu.png"
+                            src="norsu.png"
                             alt="NORSU Logo"
                             className="h-12 w-auto object-contain"
                         />

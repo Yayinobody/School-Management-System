@@ -15,17 +15,16 @@ import {
 
 import { Checkbox } from '@/components/ui/checkbox';
 
-export type Teacher = {
+export type Student = {
     id: string;
     name: string;
     email: string;
-    employeeNumber: string;
-    department: string;
-    program: string;
+    studentNumber: string;
+    enrollmentStatus: string;
 };
 import { Copy, Eye, Pencil, Trash2 } from 'lucide-react';
 
-export const columns: ColumnDef<Teacher>[] = [
+export const columns: ColumnDef<Student>[] = [
     {
         id: 'select',
         header: ({ table }) => (
@@ -71,21 +70,17 @@ export const columns: ColumnDef<Teacher>[] = [
         header: 'Email',
     },
     {
-        accessorKey: 'employeeNumber',
-        header: 'Employee Number',
+        accessorKey: 'studentNumber',
+        header: 'Student Number',
     },
     {
-        accessorKey: 'department',
-        header: 'Department',
-    },
-    {
-        accessorKey: 'program',
-        header: 'Program',
+        accessorKey: 'enrollmentStatus',
+        header: 'Status',
     },
     {
         id: 'actions',
         cell: ({ row }) => {
-            const teacher = row.original;
+            const student = row.original;
 
             return (
                 <DropdownMenu>
@@ -102,7 +97,7 @@ export const columns: ColumnDef<Teacher>[] = [
                         <DropdownMenuItem
                             onClick={() =>
                                 navigator.clipboard.writeText(
-                                    teacher.employeeNumber,
+                                    student.studentNumber,
                                 )
                             }
                         >
@@ -114,7 +109,7 @@ export const columns: ColumnDef<Teacher>[] = [
 
                         {/* View */}
                         <DropdownMenuItem
-                            onClick={() => console.log('View', teacher.id)}
+                            onClick={() => console.log('View', student.id)}
                         >
                             <Eye className="mr-2 h-4 w-4" />
                             View Profile
@@ -122,7 +117,7 @@ export const columns: ColumnDef<Teacher>[] = [
 
                         {/* Update */}
                         <DropdownMenuItem
-                            onClick={() => console.log('Edit', teacher.id)}
+                            onClick={() => console.log('Edit', student.id)}
                         >
                             <Pencil className="mr-2 h-4 w-4" />
                             Edit Details
@@ -133,7 +128,7 @@ export const columns: ColumnDef<Teacher>[] = [
                         {/* Delete - Destructive */}
                         <DropdownMenuItem
                             className="text-destructive focus:text-destructive"
-                            onClick={() => console.log('Delete', teacher.id)}
+                            onClick={() => console.log('Delete', student.id)}
                         >
                             <Trash2 className="mr-2 h-4 w-4" />
                             Delete Teacher

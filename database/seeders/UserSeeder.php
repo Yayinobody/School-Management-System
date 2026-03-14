@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Student;
 use App\Models\Teacher;
-use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
@@ -36,6 +35,7 @@ class UserSeeder extends Seeder
                     'year_level' => rand(1,5),
                     'birthday' => '2004-01-01',
                 ]);
+
             } else {
                 $user->assignRole($teacherRole);
 

@@ -9,7 +9,9 @@ import {
     SortingState,
     getSortedRowModel,
     ColumnFiltersState,
-    getFilteredRowModel
+    getFilteredRowModel,
+    VisibilityState,
+
 } from '@tanstack/react-table';
 
 import {
@@ -23,6 +25,12 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 
 interface DataTableProps<TData, TValue> {
@@ -38,6 +46,10 @@ export function DataTable<TData, TValue>({
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
       []
     )
+    const [columnVisibility, setColumnVisibility] =
+      React.useState<VisibilityState>({})
+    const [rowSelection, setRowSelection] = React.useState({})
+
 
     const table = useReactTable({
         data,
@@ -46,9 +58,15 @@ export function DataTable<TData, TValue>({
         getPaginationRowModel: getPaginationRowModel(),
         onSortingChange: setSorting,
         getSortedRowModel: getSortedRowModel(),
+        onColumnVisibilityChange: setColumnVisibility,
+        onRowSelectionChange: setRowSelection,
+
         state: {
             sorting,
-            columnFilters
+            columnFilters,
+            columnVisibility,
+            rowSelection,
+
         },
         onColumnFiltersChange: setColumnFilters,
             getFilteredRowModel: getFilteredRowModel(),
@@ -56,7 +74,8 @@ export function DataTable<TData, TValue>({
 
     return (
         <div>
-        <div className="flex items-center py-4">
+
+        <div className="p-4 flex items-center py-4">
                 <Input
                   placeholder="Filter emails..."
                   value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
@@ -65,8 +84,36 @@ export function DataTable<TData, TValue>({
                   }
                   className="max-w-sm"
                 />
+                <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="outline" className="ml-auto">
+                              Columns
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            {table
+                              .getAllColumns()
+                              .filter(
+                                (column) => column.getCanHide()
+                              )
+                              .map((column) => {
+                                return (
+                                  <DropdownMenuCheckboxItem
+                                    key={column.id}
+                                    className="capitalize"
+                                    checked={column.getIsVisible()}
+                                    onCheckedChange={(value) =>
+                                      column.toggleVisibility(!!value)
+                                    }
+                                  >
+                                    {column.id}
+                                  </DropdownMenuCheckboxItem>
+                                )
+                              })}
+                          </DropdownMenuContent>
+                        </DropdownMenu>
               </div>
-        <div className="overflow-hidden rounded-md border">
+        <div className="p-4 overflow-hidden rounded-md">
             <Table>
                 <TableHeader>
                     {table.getHeaderGroups().map((headerGroup) => (
@@ -133,8 +180,13 @@ export function DataTable<TData, TValue>({
                     >
                       Next
                     </Button>
-                  </div>
+                </div>
+                <div className="flex-1 text-sm text-muted-foreground">
+                  {table.getFilteredSelectedRowModel().rows.length} of{" "}
+                  {table.getFilteredRowModel().rows.length} row(s) selected.
+                </div>
             </div>
+
         </div>
     );
 }

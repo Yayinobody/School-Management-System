@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\EnrollmentStatus;
+use App\Enums\SubjectEnrollmentStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('student_id')->constrained()->cascadeOnDelete();
             $table->foreignId('section_id')->constrained()->cascadeOnDelete();
-            $table->enum('status', array_column(EnrollmentStatus::cases(), 'value'));
+            $table->enum('status', array_column(SubjectEnrollmentStatus::cases(), 'value'));
             $table->timestamps();
 
             $table->unique(['student_id', 'section_id']);
