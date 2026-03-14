@@ -30,11 +30,11 @@ class Subject extends Model
 
     public function program(): BelongsToMany
     {
-        return $this->belongsToMany(Program::class, 'program_subjects');
+        return $this->belongsToMany(Program::class, 'program_subjects')->withTimestamps();
     }
 
     public function teachers(): BelongsToMany
     {
-        return $this->belongsToMany(Teacher::class, 'teacher_subjects');
+        return $this->belongsToMany(Teacher::class, 'teacher_subjects')->withTimestamps();
     }
 }

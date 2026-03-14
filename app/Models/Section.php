@@ -32,9 +32,9 @@ class Section extends Model
         return $this->hasOne(Term::class);
     }
 
-    public function teacher(): HasOne
+    public function teacher(): BelongsTo
     {
-        return $this->hasOne(Teacher::class);
+        return $this->belongsTo(Teacher::class);
     }
 
     public function subjectEnrollment(): HasMany
@@ -47,8 +47,8 @@ class Section extends Model
         return $this->hasMany(SectionDay::class);
     }
 
-    public function room(): HasOne
+    public function room(): BelongsTo
     {
-        return $this->hasOne(Room::class);
+        return $this->belongsTo(Room::class);
     }
 }

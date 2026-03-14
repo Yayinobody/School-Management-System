@@ -11,7 +11,7 @@ class Teacher extends Model
 {
     protected $fillable = [
         "user_id",
-        "department_id",
+        "program_id",
         "fname",
         "mname",
         "lname",
@@ -37,6 +37,6 @@ class Teacher extends Model
 
     public function subjects(): BelongsToMany
     {
-        return $this-belongsToMany(Subject::class, 'load_subjects');
+        return $this->belongsToMany(Subject::class, 'teacher_subjects')->withTimestamps();
     }
 }

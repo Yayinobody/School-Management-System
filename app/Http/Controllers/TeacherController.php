@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Teacher;
+// use App\Models\User;
 use Illuminate\Http\Request;
 
 class TeacherController extends Controller
@@ -10,12 +11,26 @@ class TeacherController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $teacher = Teacher::find($request->id);
-        $sections = $teacher->sections;
+        $teachers = Teacher::with(['user:id,email','program:id,code,department_id','program.department:id,code'])
+        ->get()
+        ->map( function ($teacher){
+            return[
+                'id'=>$teacher->id,
+                'fname'=>$teacher->fname,
+                'mname'=>$teacher->mname,
+                'lname'=>$teacher->lname,
+                'email'=>$teacher->user->email,
+                'employeeNumber'=>$teacher->employee_number,
+                'department'=>$teacher->program->department->code,
+                'program'=>$teacher->program->code,
+            ];
+        })->toArray();
 
-        dd($sections);
+        return inertia('teachers',
+        ['data'=>$teachers,
+        ]);
     }
 
     /**

@@ -22,7 +22,10 @@ class DatabaseSeeder extends Seeder
         UserSeeder::class,
         SchoolYearSeeder::class,
         TermSeeder::class,
-        EnrollmentSeeder::class
+        EnrollmentSeeder::class,
+        TeacherSubjectSeeder::class,
+        RoomSeeder::class,
+        SectionSeeder::class
         ]);
     }
 }
