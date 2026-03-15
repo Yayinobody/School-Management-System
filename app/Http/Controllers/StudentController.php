@@ -49,7 +49,31 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        //
+        $student->load(['user:id,email,name',
+        'subjectEnrollments:id,student_id,section_id,status',
+        'subjectEnrollments.section:id,subject_id,section_code',
+        'enrollment:id,student_id,program_id,term_id,status',
+        'enrollment.program:id,code',
+        'enrollment.term:id,semester']);
+
+        $data = [
+            'id' => $student->id,
+            'name' => $student->user->name,
+            'email' => $student->user->email,
+            'studentNumber' => $student->student_number,
+            'enrollment' => $student->enrollment->program->code,
+            'enrollmentTerm'=>$student->enrollment->term->semester,
+            'enrollmentStatus'=>$student->enrollment->status,
+            'subjects' => $student->subjectEnrollments
+            ->map(function ($enrollment) {
+                return [
+                    'sectionCode' => $enrollment->section->section_code,
+                    'subjectId' => $enrollment->section->subject_id,
+                    'enrollmentStatus' => $enrollment->status,
+                ];
+            }),
+        ];
+        dd($data);
     }
 
     /**

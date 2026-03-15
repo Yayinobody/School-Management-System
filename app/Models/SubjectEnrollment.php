@@ -10,9 +10,9 @@ class SubjectEnrollment extends Model
 {
     protected $fillable = ["student_id", "section_id", "status"];
 
-    public function students(): HasMany
+    public function student(): BelongsTo
     {
-        return $this->hasMany(Student::class);
+        return $this->belongsTo(Student::class);
     }
 
     public function section(): BelongsTo

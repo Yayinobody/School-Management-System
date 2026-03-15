@@ -25,7 +25,8 @@ class DatabaseSeeder extends Seeder
         EnrollmentSeeder::class,
         TeacherSubjectSeeder::class,
         RoomSeeder::class,
-        SectionSeeder::class
+        SectionSeeder::class,
+        SubjectEnrollmentSeeder::class
         ]);
     }
 }

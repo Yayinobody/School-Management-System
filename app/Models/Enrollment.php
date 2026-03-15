@@ -9,7 +9,7 @@ class Enrollment extends Model
 {
     protected $fillable = ["student_id", "program_id", "term_id", "status"];
 
-    public function students(): BelongsTo
+    public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class);
     }
