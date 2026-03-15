@@ -4,7 +4,7 @@ namespace App\Enums;
 
 enum EnrollmentStatus: string
 {
-    case Enrolled = 'enrolled';
-    case UnEnrolled = 'unenrolled';
-    case Graduated = 'graduated';
+    case Enrolled = 'Enrolled';
+    case UnEnrolled = 'UnEnrolled';
+    case Graduated = 'Graduated';
 }

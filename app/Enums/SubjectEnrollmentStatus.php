@@ -4,8 +4,8 @@ namespace App\Enums;
 
 enum SubjectEnrollmentStatus: string
 {
-    case Enrolled = 'enrolled';
-    case Failed = 'failed';
-    case Drop = 'drop';
-    case Incomplete = 'incomplete';
+    case Enrolled = 'Enrolled';
+    case Failed = 'Failed';
+    case Drop = 'Drop';
+    case Incomplete = 'Incomplete';
 }

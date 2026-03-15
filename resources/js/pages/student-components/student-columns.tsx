@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 import { Checkbox } from '@/components/ui/checkbox';
+import { Copy, Eye, Pencil, Trash2, BookOpen } from 'lucide-react';
 
 export type Student = {
     id: string;
@@ -22,9 +23,16 @@ export type Student = {
     studentNumber: string;
     enrollmentStatus: string;
 };
-import { Copy, Eye, Pencil, Trash2 } from 'lucide-react';
 
-export const columns: ColumnDef<Student>[] = [
+interface ColumnProps {
+    onViewSubject: (student: Student) => void;
+    onViewEdit: (student: Student) => void;
+}
+
+export const columns = ({
+    onViewSubject,
+    onViewEdit,
+}: ColumnProps): ColumnDef<Student>[] => [
     {
         id: 'select',
         header: ({ table }) => (
@@ -90,7 +98,7 @@ export const columns: ColumnDef<Student>[] = [
                             <MoreHorizontal className="h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-[160px]">
+                    <DropdownMenuContent align="end" className="w-[180px]">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
                         {/* Copy ID - Always useful for debugging */}
@@ -108,19 +116,19 @@ export const columns: ColumnDef<Student>[] = [
                         <DropdownMenuSeparator />
 
                         {/* View */}
-                        <DropdownMenuItem
-                            onClick={() => console.log('View', student.id)}
-                        >
+                        <DropdownMenuItem onClick={() => onViewEdit(student)}>
                             <Eye className="mr-2 h-4 w-4" />
-                            View Profile
+                            {'/'}
+                            <Pencil className="mr-2 h-4 w-4" />
+                            View/Edit
                         </DropdownMenuItem>
 
                         {/* Update */}
                         <DropdownMenuItem
-                            onClick={() => console.log('Edit', student.id)}
+                            onClick={() => onViewSubject(student)}
                         >
-                            <Pencil className="mr-2 h-4 w-4" />
-                            Edit Details
+                            <BookOpen className="mr-2 h-4 w-4" />
+                            View Subjects
                         </DropdownMenuItem>
 
                         <DropdownMenuSeparator />

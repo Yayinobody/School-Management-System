@@ -47,11 +47,9 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Student $student)
+    public function showProfile(Student $student)
     {
         $student->load(['user:id,email,name',
-        'subjectEnrollments:id,student_id,section_id,status',
-        'subjectEnrollments.section:id,subject_id,section_code',
         'enrollment:id,student_id,program_id,term_id,status',
         'enrollment.program:id,code',
         'enrollment.term:id,semester']);
@@ -64,16 +62,26 @@ class StudentController extends Controller
             'enrollment' => $student->enrollment->program->code,
             'enrollmentTerm'=>$student->enrollment->term->semester,
             'enrollmentStatus'=>$student->enrollment->status,
-            'subjects' => $student->subjectEnrollments
+        ];
+        return response()->json($data);
+
+    }
+
+    public function showSubjects(Student $student)
+    {
+        $student->load(['subjectEnrollments:id,student_id,section_id,status',
+        'subjectEnrollments.section:id,subject_id,section_code', 'subjectEnrollments.section.subject:id,code']);
+
+        $data = $student->subjectEnrollments
             ->map(function ($enrollment) {
                 return [
                     'sectionCode' => $enrollment->section->section_code,
-                    'subjectId' => $enrollment->section->subject_id,
+                    'subjectCode' => $enrollment->section->subject->code,
                     'enrollmentStatus' => $enrollment->status,
                 ];
-            }),
-        ];
-        dd($data);
+            });
+
+        return response()->json($data);
     }
 
     /**

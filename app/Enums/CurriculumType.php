@@ -4,6 +4,6 @@ namespace App\Enums;
 
 enum CurriculumType: string
 {
-    case Core ="core";
-    case Elective = "elective";
+    case Core ="Core";
+    case Elective = "Elective";
 }

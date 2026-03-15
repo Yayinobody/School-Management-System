@@ -15,7 +15,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/teachers', [TeacherController::class, 'index'])->name('teachers');
 
     Route::get('/students', [StudentController::class, 'index'])->name('students');
-    Route::get('/students/{student}', [StudentController::class, 'show'])->name('studentShow');
+    Route::get('/students/profile/{student}', [StudentController::class, 'showProfile'])->name('studentShowProfile');
+    Route::get('/students/subjects/{student}', [StudentController::class, 'showSubjects'])->name('studentShowSubjects');
+
 
 });
 
