@@ -46,7 +46,6 @@ class SubjectSeeder extends Seeder
                 'updated_at' => now(),
             ],
 
-            // BSCS
             [
                 'program_id' => $bscs->id,
                 'code' => 'CS101',

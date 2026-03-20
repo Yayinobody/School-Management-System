@@ -12,14 +12,17 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::with(['user:id,email,name','enrollment:id,student_id,status'])
+        $students = Student::with(['enrollment:id,student_id,status'])
         ->get()
         ->map( function ($student){
             return[
             'id' => $student->id,
-            'name' => $student->user->name,
-            'email' => $student->user->email,
+            'fname' => $student->fname,
+            'mname' => $student->mname,
+            'lname' => $student->lname,
             'studentNumber' => $student->student_number,
+            'gender' => $student->student_number,
+            'year_level' => $student->lname,
             'enrollmentStatus' => $student->enrollment->status,
             ];
             });

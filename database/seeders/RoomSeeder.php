@@ -10,24 +10,40 @@ class RoomSeeder extends Seeder
 {
     public function run(): void
     {
-        // Find CAS department
-        $department = Department::where('code', 'CAS')->first();
+        $departments = Department::all()->keyBy('code');
 
-        if (!$department) {
-            $this->command->error('CAS department not found.');
-            return;
+        $roomsByDepartment = [
+
+            'CAS' => [
+                'start' => 301,
+                'end' => 310,
+                'capacity' => 40,
+            ],
+
+            'CIT' => [
+                'start' => 101,
+                'end' => 210,
+                'capacity' => 40,
+            ],
+
+
+        ];
+
+        foreach ($roomsByDepartment as $code => $data) {
+
+            if (!isset($departments[$code])) {
+                $this->command->error("$code department not found.");
+                continue;
+            }
+
+            for ($i = $data['start']; $i <= $data['end']; $i++) {
+
+                Room::create([
+                    'name' => "{$code} {$i}",
+                    'department_id' => $departments[$code]->id,
+                    'capacity' => $data['capacity'],
+                ]);
+            }
         }
-
-        for ($i = 1; $i <= 11; $i++) {
-
-            $roomNumber = str_pad($i, 2, '0', STR_PAD_LEFT);
-
-            Room::create([
-                'name' => "CAS 3{$roomNumber}", // CAS 301 → CAS 311
-                'department_id' => $department->id,
-                'capacity' => 40
-            ]);
-        }
-
     }
 }

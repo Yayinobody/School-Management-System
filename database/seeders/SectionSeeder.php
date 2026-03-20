@@ -24,40 +24,46 @@ class SectionSeeder extends Seeder
             return;
         }
 
+        $timeSlots = [
+            ['08:00:00', '09:30:00'],
+            ['09:30:00', '11:00:00'],
+            ['13:00:00', '14:30:00'],
+            ['14:30:00', '16:00:00'],
+        ];
+
         foreach ($subjects as $subject) {
 
-            // create 2 sections per subject
             for ($i = 1; $i <= 2; $i++) {
 
-                Section::create([
-                    'subject_id' => $subject->id,
+                $time = $timeSlots[array_rand($timeSlots)];
 
-                    // assign random teacher if available
-                    'teacher_id' => $teachers->isNotEmpty()
-                        ? $teachers->random()->id
-                        : null,
+                Section::updateOrCreate(
+                    [
+                        'subject_id' => $subject->id,
+                        'section_code' => $subject->code . '-' . $i,
+                    ],
+                    [
+                        'teacher_id' => $teachers->isNotEmpty()
+                            ? $teachers->random()->id
+                            : null,
 
-                    // assign random room if available
-                    'room_id' => $rooms->isNotEmpty()
-                        ? $rooms->random()->id
-                        : null,
+                        'room_id' => $rooms->isNotEmpty()
+                            ? $rooms->random()->id
+                            : null,
 
-                    // assign random term
-                    'term_id' => $terms->isNotEmpty()
-                        ? $terms->random()->id
-                        : null,
+                        'term_id' => $terms->isNotEmpty()
+                            ? $terms->random()->id
+                            : null,
 
-                    'section_code' => $subject->code . '-' . $i,
+                        'time_start' => $time[0],
+                        'time_end'   => $time[1],
 
-                    'time_start' => '08:00:00',
-                    'time_end' => '09:30:00',
+                        'max_slots' => 40,
 
-                    'max_slots' => 40,
-
-                    'status' => SectionStatus::Available->value
-                ]);
+                        'status' => SectionStatus::Available->value,
+                    ]
+                );
             }
         }
-
     }
 }

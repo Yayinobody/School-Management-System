@@ -12,58 +12,84 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-    /**
-     * Run the database seeds.
-     */
         $studentRole = Role::where('name', 'student')->first();
         $teacherRole = Role::where('name', 'teacher')->first();
         $adminRole = Role::where('name', 'admin')->first();
 
-        User::factory(50)->create()->each(function ($user) use ($studentRole, $teacherRole) {
+        $usedStudentNumbers = [];
+        $usedEmployeeNumbers = [];
+
+        User::factory(50)->create()->each(function ($user) use (
+            $studentRole,
+            $teacherRole,
+            &$usedStudentNumbers,
+            &$usedEmployeeNumbers
+        ) {
 
             $isStudent = rand(1, 100) > 10;
 
             if ($isStudent) {
+
                 $user->assignRole($studentRole);
 
+                // 9-digit student number
+                do {
+                    $studentNumber = (string) rand(202300000, 202399999);
+                } while (in_array($studentNumber, $usedStudentNumbers));
+
+                $usedStudentNumbers[] = $studentNumber;
+
+                // 🔥 NEW: some students have NO user account
+                $hasUser = rand(1, 100) > 30; // 70% linked, 30% no user
+
                 Student::create([
-                    'user_id' => $user->id,
+                    'user_id' => $hasUser ? $user->id : null,
                     'fname' => $user->name,
                     'lname' => 'Student',
-                    'gender'=> 'male',
-                    'student_number' => '2024-' . rand(1000,9999),
-                    'year_level' => rand(1,5),
+                    'gender' => 'male',
+                    'student_number' => $studentNumber,
+                    'year_level' => rand(1, 5),
                     'birthday' => '2004-01-01',
                 ]);
 
             } else {
+
                 $user->assignRole($teacherRole);
+
+                // 9–10 digit employee number
+                do {
+                    $employeeNumber = (string) rand(100000000, 999999999);
+                } while (in_array($employeeNumber, $usedEmployeeNumbers));
+
+                $usedEmployeeNumbers[] = $employeeNumber;
 
                 Teacher::create([
                     'user_id' => $user->id,
                     'program_id' => 1,
                     'fname' => $user->name,
                     'lname' => 'Teacher',
-                    'gender'=> 'female',
-                    'employee_number' => 'EMP-' . rand(100,999),
+                    'gender' => 'female',
+                    'employee_number' => $employeeNumber,
                     'birthday' => '1990-01-01',
                 ]);
             }
         });
 
+        // ADMIN
         $admin = User::factory()->create([
             'name' => 'Test Admin',
             'email' => 'admin@example.com',
         ]);
 
         $admin->assignRole('admin');
+
         Teacher::create([
             'user_id' => $admin->id,
             'program_id' => 1,
             'fname' => $admin->name,
             'lname' => 'Admin',
-            'gender'=> 'male',
-            'employee_number' => 'EMP-001',
+            'gender' => 'male',
+            'employee_number' => (string) rand(100000000, 999999999),
             'birthday' => '1985-01-01',
         ]);
     }
