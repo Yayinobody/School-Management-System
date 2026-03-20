@@ -59,6 +59,22 @@ export default function Register() {
                             </div>
 
                             <div className="grid gap-2">
+                                <Label htmlFor="student_number">
+                                    Student Number
+                                </Label>
+                                <Input
+                                    id="student_number"
+                                    type="student_number"
+                                    required
+                                    tabIndex={2}
+                                    autoComplete="student_number"
+                                    name="student_number"
+                                    placeholder="202101901"
+                                />
+                                <InputError message={errors.student_number} />
+                            </div>
+
+                            <div className="grid gap-2">
                                 <Label htmlFor="password">Password</Label>
                                 <PasswordInput
                                     id="password"

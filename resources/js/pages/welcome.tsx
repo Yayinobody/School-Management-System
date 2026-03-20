@@ -7,7 +7,7 @@ import {
     ChevronRight,
 } from 'lucide-react';
 import AppearanceToggleTab from '@/components/appearance-tabs';
-
+import AiChat from '@/components/ai/aiChat';
 export default function Welcome({
     canRegister = true,
 }: {
@@ -124,6 +124,7 @@ export default function Welcome({
                         />
                     </div>
                 </main>
+                <AiChat />
 
                 <footer className="mt-20 flex flex-col items-center justify-between gap-4 border-t border-gray-100 px-8 py-10 text-xs font-medium text-gray-400 md:flex-row lg:px-24 dark:border-[#1e1e1e]">
                     <p>
