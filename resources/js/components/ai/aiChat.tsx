@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
-import { MessageCircle, X, Send } from 'lucide-react';
+import { MessageCircle, X, Send, Loader2 } from 'lucide-react';
 import { usePage } from '@inertiajs/react';
+import ReactMarkdown from 'react-markdown';
 
 type Message = {
     text: string;
@@ -12,6 +13,7 @@ export default function AiChat() {
     const user = auth?.user;
     const [open, setOpen] = useState(false);
     const [message, setMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const [messages, setMessages] = useState<Message[]>([
         {
             text: `Hello ${user?.name ?? 'Guest'}! How can I help you today?`,
@@ -19,30 +21,39 @@ export default function AiChat() {
         },
     ]);
 
+    const suggestions = [
+        'What is Quiet Week in NORSU?',
+        'When is enrollment?',
+        'What are the admission requirements?',
+        'How to request TOR?',
+    ];
+
     const scrollRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (scrollRef.current) {
             scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
         }
-    }, [messages, open]);
+    }, [messages, open, isLoading]);
 
-    const sendMessage = async () => {
-        if (!message.trim()) return;
+    const handleChat = async (textToSend: string) => {
+        if (!textToSend.trim() || isLoading) return;
 
-        const userMessage = message;
+        setMessages((prev) => [...prev, { text: textToSend, sender: 'user' }]);
 
-        setMessages((prev) => [...prev, { text: userMessage, sender: 'user' }]);
+        if (textToSend === message) setMessage('');
 
-        setMessage('');
+        setIsLoading(true);
 
         try {
             const res = await fetch('/api/chat', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ message: userMessage }),
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    question: textToSend,
+                    role: user?.role ?? 'guest',
+                    context: {},
+                }),
             });
 
             const data = await res.json();
@@ -50,35 +61,36 @@ export default function AiChat() {
             setMessages((prev) => [
                 ...prev,
                 {
-                    text: data.reply ?? "Sorry, I didn't understand that.",
+                    text: data.answer ?? "Sorry, I didn't understand that.",
                     sender: 'ai',
                 },
             ]);
         } catch (error) {
             setMessages((prev) => [
                 ...prev,
-                {
-                    text: 'Error connecting to AI server.',
-                    sender: 'ai',
-                },
+                { text: 'Error connecting to AI server.', sender: 'ai' },
             ]);
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
-        <div className="fixed right-6 bottom-6 z-50 flex flex-col items-end font-sans">
+        <div className="fixed right-6 bottom-6 z-50 flex flex-col items-end font-sans text-zinc-900 dark:text-zinc-100">
             {open && (
                 <div className="mb-4 flex h-[450px] w-85 animate-in flex-col overflow-hidden rounded-2xl border bg-white shadow-2xl transition-all duration-200 fade-in zoom-in dark:border-zinc-800 dark:bg-[#111]">
                     <div className="flex items-center justify-between border-b bg-white p-4 dark:bg-[#111]">
                         <div className="flex items-center gap-2">
-                            <div className="h-2 w-2 animate-pulse rounded-full bg-green-500"></div>
-                            <span className="font-bold tracking-tight">
+                            <div
+                                className={`h-2 w-2 rounded-full ${isLoading ? 'animate-bounce bg-amber-400' : 'bg-green-500'}`}
+                            ></div>
+                            <span className="font-bold tracking-tight text-brand">
                                 NORSU AI
                             </span>
                         </div>
                         <button
                             onClick={() => setOpen(false)}
-                            className="rounded-full p-1 transition-colors hover:bg-gray-100 dark:hover:bg-zinc-800"
+                            className="rounded-full p-1 hover:bg-gray-100 dark:hover:bg-zinc-800"
                         >
                             <X size={20} />
                         </button>
@@ -96,14 +108,42 @@ export default function AiChat() {
                                 <div
                                     className={`max-w-[80%] rounded-2xl px-4 py-2 text-sm shadow-sm ${
                                         msg.sender === 'user'
-                                            ? 'rounded-br-none bg-brand text-white' // Uses your brand color
-                                            : 'rounded-bl-none bg-gray-100 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200'
+                                            ? 'rounded-br-none bg-brand text-white'
+                                            : 'rounded-bl-none bg-gray-100 dark:bg-zinc-800 dark:text-zinc-200'
                                     }`}
                                 >
-                                    {msg.text}
+                                    <ReactMarkdown>{msg.text}</ReactMarkdown>
                                 </div>
                             </div>
                         ))}
+
+                        {messages.length === 1 && !isLoading && (
+                            <div className="space-y-2">
+                                <div className="flex flex-wrap justify-end gap-2">
+                                    {suggestions.map((s, i) => (
+                                        <button
+                                            key={i}
+                                            onClick={() => handleChat(s)}
+                                            className="rounded-full border border-gray-300 bg-white px-3 py-1 text-xs shadow-sm transition hover:bg-gray-100 dark:border-zinc-700 dark:bg-zinc-900 dark:hover:bg-zinc-800"
+                                        >
+                                            {s}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {isLoading && (
+                            <div className="flex justify-start">
+                                <div className="max-w-[80%] rounded-2xl rounded-bl-none bg-gray-100 px-4 py-3 shadow-sm dark:bg-zinc-800">
+                                    <div className="flex gap-1">
+                                        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-zinc-400 [animation-delay:-0.3s]"></span>
+                                        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-zinc-400 [animation-delay:-0.15s]"></span>
+                                        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-zinc-400"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     <div className="border-t bg-gray-50 p-4 dark:bg-[#181818]">
@@ -111,18 +151,31 @@ export default function AiChat() {
                             <input
                                 type="text"
                                 value={message}
+                                disabled={isLoading}
                                 onChange={(e) => setMessage(e.target.value)}
                                 onKeyDown={(e) =>
-                                    e.key === 'Enter' && sendMessage()
+                                    e.key === 'Enter' && handleChat(message)
                                 }
-                                placeholder="Write a message..."
-                                className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 pr-12 text-sm focus:border-brand focus:ring-2 focus:ring-brand/20 focus:outline-none dark:border-zinc-700 dark:bg-zinc-900"
+                                placeholder={
+                                    isLoading
+                                        ? 'AI is thinking...'
+                                        : 'Write a message...'
+                                }
+                                className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 pr-12 text-sm focus:border-brand focus:ring-2 focus:ring-brand/20 focus:outline-none disabled:opacity-70 dark:border-zinc-700 dark:bg-zinc-900"
                             />
                             <button
-                                onClick={sendMessage}
-                                className="absolute right-2 p-2 text-brand transition-transform hover:scale-110"
+                                onClick={() => handleChat(message)}
+                                disabled={isLoading || !message.trim()}
+                                className="absolute right-2 p-2 text-brand transition-transform hover:scale-110 disabled:opacity-50 disabled:hover:scale-100"
                             >
-                                <Send size={18} />
+                                {isLoading ? (
+                                    <Loader2
+                                        size={18}
+                                        className="animate-spin"
+                                    />
+                                ) : (
+                                    <Send size={18} />
+                                )}
                             </button>
                         </div>
                     </div>

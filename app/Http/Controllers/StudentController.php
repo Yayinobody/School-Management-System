@@ -61,9 +61,11 @@ class StudentController extends Controller
 
         $data = [
             'id' => $student->id,
-            'name' => $student->user->name,
-            'email' => $student->user->email,
+            'fname' => $student->fname,
+            'mname' => $student->mname,
+            'lname' => $student->lname,
             'studentNumber' => $student->student_number,
+            'birthday'=> $student->birthday,
             'enrollment' => $student->enrollment->program->code,
             'enrollmentTerm'=>$student->enrollment->term->semester,
             'enrollmentStatus'=>$student->enrollment->status,

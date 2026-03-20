@@ -19,7 +19,7 @@ class UserController extends Controller
                 'id'=>$user->id,
                 'name'=>$user->name,
                 'email'=>$user->email,
-                'role'=>$user->getRoleNames()
+                'role'=>$user->getRoleNames()->first(),
             ];
             }
         );
