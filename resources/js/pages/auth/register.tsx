@@ -9,13 +9,32 @@ import { Spinner } from '@/components/ui/spinner';
 import AuthLayout from '@/layouts/auth-layout';
 import { login } from '@/routes';
 import { store } from '@/routes/register';
+import { useState } from 'react';
 
 export default function Register() {
+    const [role, setRole] = useState('student');
     return (
         <AuthLayout
             title="Create an account"
             description="Enter your details below to create your account"
         >
+            <div className="flex gap-2">
+                <Button
+                    type="button"
+                    variant={role === 'student' ? 'default' : 'outline'}
+                    onClick={() => setRole('student')}
+                >
+                    Student
+                </Button>
+
+                <Button
+                    type="button"
+                    variant={role === 'teacher' ? 'default' : 'outline'}
+                    onClick={() => setRole('teacher')}
+                >
+                    Teacher
+                </Button>
+            </div>
             <Head title="Register" />
             <Form
                 {...store.form()}
@@ -58,22 +77,40 @@ export default function Register() {
                                 <InputError message={errors.email} />
                             </div>
 
-                            <div className="grid gap-2">
-                                <Label htmlFor="student_number">
-                                    Student Number
-                                </Label>
-                                <Input
-                                    id="student_number"
-                                    type="student_number"
-                                    required
-                                    tabIndex={2}
-                                    autoComplete="student_number"
-                                    name="student_number"
-                                    placeholder="202101901"
-                                />
-                                <InputError message={errors.student_number} />
-                            </div>
+                            {role === 'student' && (
+                                <div className="grid gap-2">
+                                    <Label htmlFor="student_number">
+                                        Student Number
+                                    </Label>
+                                    <Input
+                                        id="student_number"
+                                        type="text"
+                                        required
+                                        name="student_number"
+                                        placeholder="202101901"
+                                    />
+                                    <InputError
+                                        message={errors.student_number}
+                                    />
+                                </div>
+                            )}
 
+                            {role === 'teacher' && (
+                                <div className="grid gap-2">
+                                    <Label htmlFor="employee_number">
+                                        Employee Number
+                                    </Label>
+                                    <Input
+                                        id="employee_number"
+                                        type="text"
+                                        name="employee_number"
+                                        placeholder="EMP-0001"
+                                    />
+                                    <InputError
+                                        message={errors.employee_number}
+                                    />
+                                </div>
+                            )}
                             <div className="grid gap-2">
                                 <Label htmlFor="password">Password</Label>
                                 <PasswordInput

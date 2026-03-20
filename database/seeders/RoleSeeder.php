@@ -26,7 +26,7 @@ class RoleSeeder extends Seeder
             'edit grades',
             'view grades',
         ];
-        
+
 
         foreach ($permissions as $permission) {
             Permission::firstOrCreate(['name' => $permission]);

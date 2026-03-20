@@ -13,10 +13,17 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::get(['id', 'name', 'email'])->toArray();
-        return Inertia::render('user', [
-            'users' => $users,
-        ]);
+        $users = User::with('roles')->get(['id', 'name', 'email'])->map(
+        function ($user){
+            return [
+                'id'=>$user->id,
+                'name'=>$user->name,
+                'email'=>$user->email,
+                'role'=>$user->getRoleNames()
+            ];
+            }
+        );
+        dd($users);
     }
 
     /**
