@@ -1,54 +1,74 @@
 import { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send } from 'lucide-react';
+import { usePage } from '@inertiajs/react';
 
-// Added a type for messages to distinguish sender
 type Message = {
     text: string;
     sender: 'user' | 'ai';
 };
 
 export default function AiChat() {
+    const { auth } = usePage().props;
+    const user = auth?.user;
     const [open, setOpen] = useState(false);
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState<Message[]>([
-        { text: 'Hello! How can I help you today?', sender: 'ai' },
+        {
+            text: `Hello ${user?.name ?? 'Guest'}! How can I help you today?`,
+            sender: 'ai',
+        },
     ]);
 
     const scrollRef = useRef<HTMLDivElement>(null);
 
-    // Auto-scroll to bottom whenever messages update
     useEffect(() => {
         if (scrollRef.current) {
             scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
         }
     }, [messages, open]);
 
-    const sendMessage = () => {
+    const sendMessage = async () => {
         if (!message.trim()) return;
 
-        // Add user message
-        const newMessages = [
-            ...messages,
-            { text: message, sender: 'user' as const },
-        ];
-        setMessages(newMessages);
+        const userMessage = message;
+
+        setMessages((prev) => [...prev, { text: userMessage, sender: 'user' }]);
+
         setMessage('');
 
-        // Simulate an AI response after 600ms
-        setTimeout(() => {
+        try {
+            const res = await fetch('/api/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: userMessage }),
+            });
+
+            const data = await res.json();
+
             setMessages((prev) => [
                 ...prev,
-                { text: "I'm processing your request...", sender: 'ai' },
+                {
+                    text: data.reply ?? "Sorry, I didn't understand that.",
+                    sender: 'ai',
+                },
             ]);
-        }, 600);
+        } catch (error) {
+            setMessages((prev) => [
+                ...prev,
+                {
+                    text: 'Error connecting to AI server.',
+                    sender: 'ai',
+                },
+            ]);
+        }
     };
 
     return (
         <div className="fixed right-6 bottom-6 z-50 flex flex-col items-end font-sans">
-            {/* Chat Window */}
             {open && (
                 <div className="mb-4 flex h-[450px] w-85 animate-in flex-col overflow-hidden rounded-2xl border bg-white shadow-2xl transition-all duration-200 fade-in zoom-in dark:border-zinc-800 dark:bg-[#111]">
-                    {/* Header */}
                     <div className="flex items-center justify-between border-b bg-white p-4 dark:bg-[#111]">
                         <div className="flex items-center gap-2">
                             <div className="h-2 w-2 animate-pulse rounded-full bg-green-500"></div>
@@ -64,7 +84,6 @@ export default function AiChat() {
                         </button>
                     </div>
 
-                    {/* Chat Area */}
                     <div
                         ref={scrollRef}
                         className="flex-1 space-y-4 overflow-y-auto scroll-smooth p-4"
@@ -87,7 +106,6 @@ export default function AiChat() {
                         ))}
                     </div>
 
-                    {/* Input Area */}
                     <div className="border-t bg-gray-50 p-4 dark:bg-[#181818]">
                         <div className="relative flex items-center">
                             <input
@@ -111,7 +129,6 @@ export default function AiChat() {
                 </div>
             )}
 
-            {/* Toggle Button */}
             <button
                 onClick={() => setOpen(!open)}
                 className="flex items-center gap-2 rounded-full bg-brand px-6 py-3.5 font-bold text-white shadow-xl transition-all hover:shadow-brand/20 active:scale-95"

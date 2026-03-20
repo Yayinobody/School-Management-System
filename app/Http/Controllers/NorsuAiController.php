@@ -26,8 +26,7 @@ class NorsuAiController extends Controller
                     'role' => 'guest',
                 ];
             }
-            $response = Http::post('http://127.0.0.1:8001/chat', $payload);
 
-            return response()->json($response->json());
+                // implement rag
     }
 }
