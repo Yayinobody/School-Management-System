@@ -32,20 +32,19 @@ class UserSeeder extends Seeder
 
                 $user->assignRole($studentRole);
 
-                // 9-digit student number
                 do {
                     $studentNumber = (string) rand(202300000, 202399999);
                 } while (in_array($studentNumber, $usedStudentNumbers));
 
                 $usedStudentNumbers[] = $studentNumber;
 
-                // 🔥 NEW: some students have NO user account
-                $hasUser = rand(1, 100) > 30; // 70% linked, 30% no user
+                $hasUser = rand(1, 100) > 30;
 
                 Student::create([
                     'user_id' => $hasUser ? $user->id : null,
                     'fname' => $user->name,
-                    'lname' => 'Student',
+                    'mname' => 'MiddleName',
+                    'lname' => 'LastName',
                     'gender' => 'male',
                     'student_number' => $studentNumber,
                     'year_level' => rand(1, 5),

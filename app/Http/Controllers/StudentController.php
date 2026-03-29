@@ -26,9 +26,11 @@ class StudentController extends Controller
             'enrollmentStatus' => $student->enrollment->status,
             ];
             });
-            return inertia('students',[
-                'data' => $students
-            ]);
+            // return inertia('students',[
+            //     'data' => $students
+            // ]);
+            //
+            dd($students);
     }
 
     /**

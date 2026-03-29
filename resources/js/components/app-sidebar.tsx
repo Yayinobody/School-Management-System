@@ -1,13 +1,24 @@
 import { Link } from '@inertiajs/react';
 import {
-    BookOpen,
-    FolderGit2,
     LayoutGrid,
-    User,
-    UserSquare2,
+    Calendar,
+    Clock,
+    Library,
+    GraduationCap,
+    BookOpen,
+    ClipboardList,
+    Users,
+    UserCheck,
+    ShieldCheck,
+    FileSpreadsheet,
+    School,
+    DoorOpen,
+    FileText,
+    History,
+    Settings,
 } from 'lucide-react';
+
 import AppLogo from '@/components/app-logo';
-import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 import {
@@ -16,42 +27,106 @@ import {
     SidebarFooter,
     SidebarHeader,
     SidebarMenu,
-    SidebarMenuButton,
     SidebarMenuItem,
+    SidebarMenuButton,
 } from '@/components/ui/sidebar';
-import { dashboard, teachers, students } from '@/routes';
-import type { NavItem } from '@/types';
-
-const mainNavItems: NavItem[] = [
+const menuGroups = [
     {
-        title: 'Dashboard',
-        href: dashboard(),
-        icon: LayoutGrid,
+        label: 'Dashboard',
+        items: [{ title: 'Dashboard', href: '/dashboard', icon: LayoutGrid }],
     },
+    // {
+    //     label: 'Academic Management',
+    //     items: [
+    //         { title: 'School Years', href: '/academic/years', icon: Calendar },
+    //         {
+    //             title: 'Terms / Semesters',
+    //             href: '/academic/terms',
+    //             icon: Clock,
+    //         },
+    //         {
+    //             title: 'Departments',
+    //             href: '/academic/departments',
+    //             icon: Library,
+    //         },
+    //         {
+    //             title: 'Programs',
+    //             href: '/academic/programs',
+    //             icon: GraduationCap,
+    //         },
+    //         { title: 'Subjects', href: '/academic/subjects', icon: BookOpen },
+    //         {
+    //             title: 'Curriculum',
+    //             href: '/academic/curriculum',
+    //             icon: ClipboardList,
+    //         },
+    //     ],
+    // },
     {
-        title: 'Teachers',
-        href: teachers(),
-        icon: User,
+        label: 'People',
+        items: [
+            { title: 'Students', href: '/students', icon: Users },
+            { title: 'Teachers', href: '/teachers', icon: UserCheck },
+            { title: 'Users & Accounts', href: '/users', icon: ShieldCheck },
+        ],
     },
-    {
-        title: 'Students',
-        href: students(),
-        icon: UserSquare2,
-    },
+    // {
+    //     label: 'Enrollment & Sections',
+    //     items: [
+    //         { title: 'Enrollment', href: '/enrollment', icon: FileSpreadsheet },
+    //         { title: 'Sections', href: '/sections', icon: School },
+    //         { title: 'Rooms', href: '/rooms', icon: DoorOpen },
+    //     ],
+    // },
+    // {
+    //     label: 'Grading',
+    //     items: [
+    //         { title: 'Grades', href: '/grades', icon: FileText },
+    //         {
+    //             title: 'Grade Reports',
+    //             href: '/grades/reports',
+    //             icon: ClipboardList,
+    //         },
+    //     ],
+    // },
+    // {
+    //     label: 'Reports',
+    //     items: [
+    //         {
+    //             title: 'Enrollment Report',
+    //             href: '/reports/enrollment',
+    //             icon: FileSpreadsheet,
+    //         },
+    //         { title: 'Grade Summary', href: '/reports/grades', icon: FileText },
+    //         {
+    //             title: 'Student Transcript',
+    //             href: '/reports/transcript',
+    //             icon: FileText,
+    //         },
+    //         {
+    //             title: 'Room Utilization',
+    //             href: '/reports/rooms',
+    //             icon: DoorOpen,
+    //         },
+    //     ],
+    // },
+    // {
+    //     label: 'System',
+    //     items: [
+    //         {
+    //             title: 'Permissions & Roles',
+    //             href: '/system/roles',
+    //             icon: ShieldCheck,
+    //         },
+    //         { title: 'Audit Logs', href: '/system/logs', icon: History },
+    //         {
+    //             title: 'System Settings',
+    //             href: '/system/settings',
+    //             icon: Settings,
+    //         },
+    //     ],
+    // },
 ];
-
-// const footerNavItems: NavItem[] = [
-//     {
-//         title: 'Repository',
-//         href: 'https://github.com/laravel/react-starter-kit',
-//         icon: FolderGit2,
-//     },
-//     {
-//         title: 'Documentation',
-//         href: 'https://laravel.com/docs/starter-kits#react',
-//         icon: BookOpen,
-//     },
-// ];
 
 export function AppSidebar() {
     return (
@@ -60,7 +135,7 @@ export function AppSidebar() {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <Link href={dashboard()} prefetch>
+                            <Link href="/dashboard" prefetch>
                                 <AppLogo />
                             </Link>
                         </SidebarMenuButton>
@@ -69,11 +144,19 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                {menuGroups.map((group) => (
+                    <NavMain
+                        key={group.label}
+                        label={group.label}
+                        items={group.items}
+                        defaultOpen={
+                            !['System', 'Reports'].includes(group.label)
+                        }
+                    />
+                ))}
             </SidebarContent>
 
             <SidebarFooter>
-                {/*<NavFooter items={footerNavItems} className="mt-auto" />*/}
                 <NavUser />
             </SidebarFooter>
         </Sidebar>

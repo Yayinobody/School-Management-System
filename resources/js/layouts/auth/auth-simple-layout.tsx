@@ -19,7 +19,7 @@ export default function AuthSimpleLayout({
                         >
                             <div className="mb-1 flex h-20 w-20 items-center justify-center rounded-md">
                                 {/*<AppLogoIcon className="size-9 fill-current text-[var(--foreground)] dark:text-white" />*/}
-                                <img src="norsu.png" />
+                                <img src="/norsu.png" alt="NORSU Logo" />
                             </div>
                             <span className="sr-only">{title}</span>
                         </Link>

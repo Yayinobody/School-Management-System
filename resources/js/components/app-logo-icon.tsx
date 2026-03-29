@@ -1,3 +1,3 @@
 export default function AppLogoIcon() {
-    return <img src="norsu.png" alt="Logo" className="h-auto w-auto" />;
+    return <img src="/norsu.png" alt="NORSU Logo" className="h-auto w-auto" />;
 }
