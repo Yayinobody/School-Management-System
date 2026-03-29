@@ -13,16 +13,17 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        $teachers = Teacher::with(['user:id,email,name','program:id,code,department_id','program.department:id,code'])
+        $teachers = Teacher::with(['program'])
         ->get()
         ->map( function ($teacher){
             return[
                 'id'=>$teacher->id,
-                'name' => $teacher->user->name,
-                'email'=>$teacher->user->email,
-                'employeeNumber'=>$teacher->employee_number,
-                'department'=>$teacher->program->department->code,
-                'program'=>$teacher->program->code,
+                'fname' => $teacher->fname,
+                'mname' => $teacher->mname,
+                'lname' => $teacher->lname,
+                'gender' =>$teacher->gender,
+                'employee_number'=>$teacher->employee_number,
+                'program_code' => $teacher->program->code,
             ];
         });
 

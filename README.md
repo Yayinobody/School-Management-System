@@ -1,4 +1,4 @@
-# Student-Management-System Frontend
+# Student-Management-System
 
 ### Dashboard
 
@@ -12,6 +12,7 @@ Teachers Card
 User Table
 - name
 - email
+- role
 - email_verified_at
 
 ### Teachers
@@ -20,10 +21,9 @@ Teacher Table
 - fname
 - mname
 - lname
+- gender
 - employee_number
-- department
-
-View Action
+- program_code
 
 
 ### Students
@@ -32,8 +32,25 @@ Student Table
 - fname
 - mname
 - lname
+- gender
 - student_number
-- department
 - year_level
+- program_code
 
-View Action
+View 
+- fname
+- mname
+- lname
+- gender
+- student_number
+- year_level
+- program_code
+- birthday
+- enrollment
+- enrollment_term
+- enrollemnt_status
+
+View Subject for every Student
+- section_code
+- subject_code
+- enrollment_status

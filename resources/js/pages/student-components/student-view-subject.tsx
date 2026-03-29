@@ -10,16 +10,10 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
-interface Subject {
-    sectionCode: string;
-    subjectCode: string;
-    enrollmentStatus: string;
-}
-
 interface StudentViewSubjectProps {
     data: {
         name: string;
-        subjects?: Subject[];
+        subjects?: any[];
     } | null;
     onClose: () => void;
 }
@@ -31,11 +25,9 @@ export default function StudentViewSubject({
     const subjects = data?.subjects || [];
 
     return (
-        /* Use flex-col and max-h to prevent the Dialog from growing infinitely */
         <div className="flex max-h-[85vh] flex-col gap-4 p-6">
             <div className="flex shrink-0 flex-col gap-1">
                 {' '}
-                {/* shrink-0 keeps header fixed */}
                 <h2 className="text-xl font-semibold tracking-tight">
                     Enrolled Subjects
                 </h2>
@@ -66,10 +58,10 @@ export default function StudentViewSubject({
                                 subjects.map((subject, index) => (
                                     <TableRow key={index}>
                                         <TableCell className="font-mono font-medium">
-                                            {subject.sectionCode}
+                                            {subject.section_code}
                                         </TableCell>
                                         <TableCell>
-                                            {subject.subjectCode}
+                                            {subject.subject_code}
                                         </TableCell>
                                         <TableCell className="text-right">
                                             <Badge
@@ -81,7 +73,7 @@ export default function StudentViewSubject({
                                                 }
                                                 className="capitalize"
                                             >
-                                                {subject.enrollmentStatus}
+                                                {subject.enrollment_status}
                                             </Badge>
                                         </TableCell>
                                     </TableRow>

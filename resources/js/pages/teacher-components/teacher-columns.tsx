@@ -15,17 +15,9 @@ import {
 
 import { Checkbox } from '@/components/ui/checkbox';
 
-export type Teacher = {
-    id: string;
-    name: string;
-    email: string;
-    employeeNumber: string;
-    department: string;
-    program: string;
-};
 import { Copy, Eye, Pencil, Trash2 } from 'lucide-react';
 
-export const columns: ColumnDef<Teacher>[] = [
+export const columns: ColumnDef<any>[] = [
     {
         id: 'select',
         header: ({ table }) => (
@@ -51,7 +43,7 @@ export const columns: ColumnDef<Teacher>[] = [
         enableHiding: false,
     },
     {
-        accessorKey: 'name',
+        accessorKey: 'fname',
         header: ({ column }) => {
             return (
                 <Button
@@ -60,26 +52,50 @@ export const columns: ColumnDef<Teacher>[] = [
                         column.toggleSorting(column.getIsSorted() === 'asc')
                     }
                 >
-                    Name
+                    First Name
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             );
         },
     },
     {
-        accessorKey: 'email',
-        header: 'Email',
+        accessorKey: 'mname',
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() =>
+                        column.toggleSorting(column.getIsSorted() === 'asc')
+                    }
+                >
+                    Middle Name
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            );
+        },
     },
     {
-        accessorKey: 'employeeNumber',
+        accessorKey: 'lname',
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() =>
+                        column.toggleSorting(column.getIsSorted() === 'asc')
+                    }
+                >
+                    Last Name
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            );
+        },
+    },
+    {
+        accessorKey: 'employee_number',
         header: 'Employee Number',
     },
     {
-        accessorKey: 'department',
-        header: 'Department',
-    },
-    {
-        accessorKey: 'program',
+        accessorKey: 'program_code',
         header: 'Program',
     },
     {

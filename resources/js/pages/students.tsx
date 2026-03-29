@@ -1,84 +1,93 @@
 import { Head } from '@inertiajs/react';
-import AppLayout from '@/layouts/app-layout';
 import { useState } from 'react';
+import AppLayout from '@/layouts/app-layout';
 import { DataTable } from '@/components/ui/data-table';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { students } from '@/routes';
 import type { BreadcrumbItem } from '@/types';
+
 import { columns as makeColumns } from './student-components/student-columns';
 import StudentViewEdit from './student-components/student-view-edit';
 import StudentViewSubject from './student-components/student-view-subject';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Students',
-        href: students(),
-    },
-];
+const breadcrumbs: BreadcrumbItem[] = [{ title: 'Students', href: students() }];
 
-interface Student {
+interface StudentBasic {
     id: string;
-    name: string;
-    email: string;
-    studentNumber: string;
-    enrollmentStatus: string;
+    fname: string;
+    mname: string;
+    lname: string;
+    gender: string;
+    student_number: string;
+    year_level: string;
+    program_code: string;
 }
 
-interface FullStudent {
-    id: number;
-    name: string;
-    email: string;
-    studentNumber: string;
-    enrollment: string;
-    enrollmentTerm: string;
-    enrollmentStatus: string;
+interface StudentDetail {
+    id: string;
+    fname: string;
+    mname: string;
+    lname: string;
+    gender: string;
+    student_number: string;
+    year_level: string;
+    program_code: string;
+    birthday: string;
+    enrollment?: string;
+    enrollmentTerm?: string;
+    enrollmentStatus?: string;
+    subjects?: any[];
 }
 
-interface StudentProps {
-    data: Student[];
+interface StudentsProps {
+    data: StudentBasic[];
 }
 
-export default function Students({ data }: StudentProps) {
-    const [modalStudent, setModalStudent] = useState<FullStudent | null>(null);
-    const [loading, setLoading] = useState(false);
-    const [activeTab, setActiveTab] = useState<'edit' | 'subjects' | null>(
+type ActiveTab = 'edit' | 'subjects' | null;
+
+export default function Students({ data }: StudentsProps) {
+    const [modalStudent, setModalStudent] = useState<StudentDetail | null>(
         null,
     );
+    const [loading, setLoading] = useState(false);
+    const [activeTab, setActiveTab] = useState<ActiveTab>(null);
 
-    const handleViewEdit = async (student: Student) => {
-        setActiveTab('edit');
+    const handleCloseModal = () => {
+        setModalStudent(null);
+        setActiveTab(null);
+    };
+
+    const fetchStudentData = async (url: string) => {
         setLoading(true);
         try {
-            const response = await fetch(`/students/profile/${student.id}`);
-            if (!response.ok) throw new Error('Failed to fetch student data');
-            const fullStudent: FullStudent = await response.json();
-            setModalStudent(fullStudent);
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Failed to fetch data');
+            return await response.json();
         } catch (error) {
             console.error(error);
-            alert('Failed to load student details.');
+            alert('Failed to load data.');
+            return null;
         } finally {
             setLoading(false);
         }
     };
 
-    const handleViewSubject = async (student: Student) => {
+    const handleViewEdit = async (student: StudentBasic) => {
+        setActiveTab('edit');
+        const studentData = await fetchStudentData(
+            `/students/profile/${student.id}`,
+        );
+        if (studentData) setModalStudent(studentData);
+    };
+
+    const handleViewSubject = async (student: StudentBasic) => {
         setActiveTab('subjects');
-        setLoading(true);
-        try {
-            const response = await fetch(`/students/subjects/${student.id}`);
-            if (!response.ok)
-                throw new Error('Failed to fetch student subjects');
-            const subjectsData = await response.json();
-            setModalStudent({
-                ...student,
-                subjects: subjectsData,
-            } as any);
-        } catch (error) {
-            console.error(error);
-            alert('Failed to load student subjects.');
-        } finally {
-            setLoading(false);
-        }
+        const subjects = await fetchStudentData(
+            `/students/subjects/${student.id}`,
+        );
+        console.log(subjects);
+        if (subjects)
+            setModalStudent({ ...student, subjects } as StudentDetail);
     };
 
     return (
@@ -99,55 +108,45 @@ export default function Students({ data }: StudentProps) {
                 </div>
 
                 <div className="rounded-xl border bg-card text-card-foreground shadow-sm">
-                    <div className="p-0">
-                        <DataTable
-                            columns={makeColumns({
-                                onViewSubject: handleViewSubject,
-                                onViewEdit: handleViewEdit,
-                            })}
-                            data={data}
-                        />
+                    <DataTable
+                        columns={makeColumns({
+                            onViewEdit: handleViewEdit,
+                            onViewSubject: handleViewSubject,
+                        })}
+                        data={data}
+                        filterColumn="student_number"
+                    />
 
-                        {/* Modal */}
-                        {modalStudent && (
-                            <Dialog
-                                open={!!modalStudent}
-                                onOpenChange={() => {
-                                    setModalStudent(null);
-                                    setActiveTab(null); // Reset tab on close
-                                }}
-                            >
-                                <DialogContent className="max-w-2xl overflow-hidden p-0">
-                                    {/* p-0 allows the components to control their own padding/spacing */}
-                                    {loading ? (
-                                        <div className="flex h-75 items-center justify-center">
-                                            <p className="animate-pulse text-muted-foreground">
-                                                Loading details...
-                                            </p>
-                                        </div>
-                                    ) : (
-                                        <div className="w-full">
-                                            {activeTab === 'edit' ? (
-                                                <StudentViewEdit
-                                                    data={modalStudent}
-                                                    onClose={() =>
-                                                        setModalStudent(null)
-                                                    }
-                                                />
-                                            ) : (
-                                                <StudentViewSubject
-                                                    data={modalStudent}
-                                                    onClose={() =>
-                                                        setModalStudent(null)
-                                                    }
-                                                />
-                                            )}
-                                        </div>
-                                    )}
-                                </DialogContent>
-                            </Dialog>
-                        )}
-                    </div>
+                    {modalStudent && (
+                        <Dialog
+                            open={!!modalStudent}
+                            onOpenChange={handleCloseModal}
+                        >
+                            <DialogContent className="max-w-2xl overflow-hidden p-0">
+                                {loading ? (
+                                    <div className="flex h-75 items-center justify-center">
+                                        <p className="animate-pulse text-muted-foreground">
+                                            Loading details...
+                                        </p>
+                                    </div>
+                                ) : (
+                                    <div className="w-full">
+                                        {activeTab === 'edit' ? (
+                                            <StudentViewEdit
+                                                data={modalStudent}
+                                                onClose={handleCloseModal}
+                                            />
+                                        ) : (
+                                            <StudentViewSubject
+                                                data={modalStudent}
+                                                onClose={handleCloseModal}
+                                            />
+                                        )}
+                                    </div>
+                                )}
+                            </DialogContent>
+                        </Dialog>
+                    )}
                 </div>
             </div>
         </AppLayout>

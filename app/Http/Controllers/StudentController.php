@@ -12,7 +12,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::with(['enrollment:id,student_id,status'])
+        $students = Student::with(['enrollment:id,student_id,program_id','enrollment.program:id,code'])
         ->get()
         ->map( function ($student){
             return[
@@ -20,17 +20,15 @@ class StudentController extends Controller
             'fname' => $student->fname,
             'mname' => $student->mname,
             'lname' => $student->lname,
-            'studentNumber' => $student->student_number,
-            'gender' => $student->student_number,
-            'year_level' => $student->lname,
-            'enrollmentStatus' => $student->enrollment->status,
+            'gender' => $student->gender,
+            'student_number' => $student->student_number,
+            'year_level' => $student->year_level,
+            'program_code' => $student->enrollment->program->code,
             ];
             });
-            // return inertia('students',[
-            //     'data' => $students
-            // ]);
-            //
-            dd($students);
+            return inertia('students',[
+                'data' => $students
+            ]);
     }
 
     /**
@@ -66,11 +64,14 @@ class StudentController extends Controller
             'fname' => $student->fname,
             'mname' => $student->mname,
             'lname' => $student->lname,
+            'gender' => $student->gender,
             'studentNumber' => $student->student_number,
+            'year_level' => $student->year_level,
+            'program_code' => $student->enrollment->program->code,
             'birthday'=> $student->birthday,
             'enrollment' => $student->enrollment->program->code,
-            'enrollmentTerm'=>$student->enrollment->term->semester,
-            'enrollmentStatus'=>$student->enrollment->status,
+            'enrollment_term'=>$student->enrollment->term->semester,
+            'enrollment_status'=>$student->enrollment->status,
         ];
         return response()->json($data);
 
@@ -84,9 +85,9 @@ class StudentController extends Controller
         $data = $student->subjectEnrollments
             ->map(function ($enrollment) {
                 return [
-                    'sectionCode' => $enrollment->section->section_code,
-                    'subjectCode' => $enrollment->section->subject->code,
-                    'enrollmentStatus' => $enrollment->status,
+                    'section_code' => $enrollment->section->section_code,
+                    'subject_code' => $enrollment->section->subject->code,
+                    'enrollment_status' => $enrollment->status,
                 ];
             });
 

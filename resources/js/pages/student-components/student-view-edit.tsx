@@ -17,24 +17,8 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import { router } from '@inertiajs/react';
-interface StudentProps {
-    data: {
-        id: number;
-        name: string;
-        email: string;
-        studentNumber: string;
-        enrollment: string;
-        enrollmentTerm: string;
-        enrollmentStatus: string;
-        subjects: Array<{
-            sectionCode: string;
-            subjectId: number;
-            enrollmentStatus: string;
-        }>;
-    };
-}
 
-export default function StudentViewEdit({ data }: StudentProps) {
+export default function StudentViewEdit({ data }: any) {
     const {
         data: formData,
         setData,
@@ -42,141 +26,246 @@ export default function StudentViewEdit({ data }: StudentProps) {
         processing,
         errors,
     } = useForm({
-        name: data.name,
-        email: data.email,
-        studentNumber: data.studentNumber,
-        enrollmentStatus: data.enrollmentStatus,
+        fname: data.fname || '',
+        mname: data.mname || '',
+        lname: data.lname || '',
+        gender: data.gender || '',
+        studentNumber: data.studentNumber || '',
+        year_level: data.year_level || '',
+        program_code: data.program_code || '',
+        birthday: data.birthday || '',
+        enrollment: data.enrollment || '',
+        enrollment_term: data.enrollment_term || '',
+        enrollment_status: data.enrollment_status || '',
     });
 
     const submit = (e: React.FormEvent) => {
         e.preventDefault();
-        // Assuming you have an update route: Route::put('/students/{student}', ...)
         put(route('studentUpdate', data.id));
     };
 
     return (
         <div className="w-full max-w-2xl p-6">
-            <form onSubmit={submit}>
-                <FieldGroup>
-                    <FieldSet>
-                        <h2 className="text-lg font-semibold">
-                            Student Information
-                        </h2>
-                        <FieldDescription>
-                            Update the official records for this student.
-                        </FieldDescription>
+            <form onSubmit={submit} className="space-y-8">
+                <FieldSet>
+                    <h2 className="text-lg font-semibold">
+                        Student Information
+                    </h2>
+                    <FieldDescription>
+                        Update the official records for this student.
+                    </FieldDescription>
 
-                        <FieldGroup className="mt-4">
-                            {/* Full Name */}
+                    <FieldGroup className="mt-4">
+                        {/* Name Row */}
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                             <Field>
-                                <FieldLabel htmlFor="name">
-                                    Full Name
+                                <FieldLabel htmlFor="fname">
+                                    First Name
                                 </FieldLabel>
                                 <Input
-                                    id="name"
-                                    value={formData.name}
+                                    id="fname"
+                                    value={formData.fname}
                                     onChange={(e) =>
-                                        setData('name', e.target.value)
+                                        setData('fname', e.target.value)
                                     }
                                     required
                                 />
-                                {errors.name && (
+                                {errors.fname && (
                                     <span className="text-sm text-destructive">
-                                        {errors.name}
+                                        {errors.fname}
                                     </span>
                                 )}
                             </Field>
-
-                            {/* Email */}
                             <Field>
-                                <FieldLabel htmlFor="email">
-                                    Email Address
+                                <FieldLabel htmlFor="mname">
+                                    Middle Name
                                 </FieldLabel>
                                 <Input
-                                    id="email"
-                                    type="email"
-                                    value={formData.email}
+                                    id="mname"
+                                    value={formData.mname}
                                     onChange={(e) =>
-                                        setData('email', e.target.value)
+                                        setData('mname', e.target.value)
+                                    }
+                                />
+                            </Field>
+                            <Field>
+                                <FieldLabel htmlFor="lname">
+                                    Last Name
+                                </FieldLabel>
+                                <Input
+                                    id="lname"
+                                    value={formData.lname}
+                                    onChange={(e) =>
+                                        setData('lname', e.target.value)
                                     }
                                     required
                                 />
+                                {errors.lname && (
+                                    <span className="text-sm text-destructive">
+                                        {errors.lname}
+                                    </span>
+                                )}
+                            </Field>
+                        </div>
+
+                        {/* Identifiers & Gender */}
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                            <Field>
+                                <FieldLabel>Student Number</FieldLabel>
+                                <Input
+                                    value={formData.studentNumber}
+                                    disabled
+                                    className="bg-muted"
+                                />
                             </Field>
 
-                            <div className="grid grid-cols-2 gap-4">
-                                {/* Student Number (Read Only if needed) */}
-                                <Field>
-                                    <FieldLabel>Student Number</FieldLabel>
-                                    <Input
-                                        value={formData.studentNumber}
-                                        disabled
-                                    />
-                                </Field>
+                            <Field>
+                                <FieldLabel>Gender</FieldLabel>
+                                <Select
+                                    value={formData.gender}
+                                    onValueChange={(val) =>
+                                        setData('gender', val)
+                                    }
+                                >
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Select" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="Male">
+                                            Male
+                                        </SelectItem>
+                                        <SelectItem value="Female">
+                                            Female
+                                        </SelectItem>
+                                        <SelectItem value="Other">
+                                            Other
+                                        </SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </Field>
 
-                                {/* Enrollment Status Select */}
-                                <Field>
-                                    <FieldLabel>Status</FieldLabel>
-                                    <Select
-                                        value={formData.enrollmentStatus}
-                                        onValueChange={(val) =>
-                                            setData('enrollmentStatus', val)
-                                        }
-                                    >
-                                        <SelectTrigger>
-                                            <SelectValue placeholder="Select status" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectGroup>
-                                                <SelectItem value="Enrolled">
-                                                    Enrolled
-                                                </SelectItem>
-                                                <SelectItem value="Dropped">
-                                                    Dropped
-                                                </SelectItem>
-                                                <SelectItem value="Graduated">
-                                                    Graduated
-                                                </SelectItem>
-                                            </SelectGroup>
-                                        </SelectContent>
-                                    </Select>
-                                </Field>
-                            </div>
-                        </FieldGroup>
-                    </FieldSet>
-
-                    {/* Program Info (Read Only Section) */}
-                    <div className="grid grid-cols-1 gap-4 rounded-xl border bg-card p-4 shadow-sm sm:grid-cols-2">
-                        <div className="space-y-1">
-                            <p className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
-                                Program
-                            </p>
-                            <p className="text-sm font-semibold text-foreground">
-                                {data.enrollment}
-                            </p>
+                            <Field>
+                                <FieldLabel htmlFor="birthday">
+                                    Birthday
+                                </FieldLabel>
+                                <Input
+                                    id="birthday"
+                                    type="date"
+                                    value={formData.birthday}
+                                    onChange={(e) =>
+                                        setData('birthday', e.target.value)
+                                    }
+                                />
+                            </Field>
                         </div>
-                        <div className="space-y-1">
-                            <p className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
-                                Term
-                            </p>
-                            <p className="text-sm font-semibold text-foreground">
-                                {data.enrollmentTerm}
-                            </p>
-                        </div>
-                    </div>
 
-                    <div className="flex items-center gap-4">
-                        <Button type="submit" disabled={processing}>
-                            {processing ? 'Saving...' : 'Update Student'}
-                        </Button>
-                        <Button
-                            variant="outline"
-                            type="button"
-                            onClick={() => router.visit(`/students`)}
-                        >
-                            Cancel
-                        </Button>
-                    </div>
-                </FieldGroup>
+                        {/* Academic Info */}
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                            <Field>
+                                <FieldLabel htmlFor="program_code">
+                                    Program Code
+                                </FieldLabel>
+                                <Input
+                                    id="program_code"
+                                    value={formData.program_code}
+                                    onChange={(e) =>
+                                        setData('program_code', e.target.value)
+                                    }
+                                />
+                            </Field>
+                            <Field>
+                                <FieldLabel>Year Level</FieldLabel>
+                                <Select
+                                    value={formData.year_level?.toString()}
+                                    onValueChange={(val) =>
+                                        setData('year_level', val)
+                                    }
+                                >
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Select Year" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="FirstYear">
+                                            1st Year
+                                        </SelectItem>
+                                        <SelectItem value="SecondYear">
+                                            2nd Year
+                                        </SelectItem>
+                                        <SelectItem value="ThirdYear">
+                                            3rd Year
+                                        </SelectItem>
+                                        <SelectItem value="FourthYear">
+                                            4th Year
+                                        </SelectItem>
+                                        <SelectItem value="FifthYear">
+                                            5th Year
+                                        </SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </Field>
+                        </div>
+
+                        {/* Enrollment Details */}
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                            <Field>
+                                <FieldLabel htmlFor="enrollment_term">
+                                    Enrollment Term
+                                </FieldLabel>
+                                <Input
+                                    id="enrollment_term"
+                                    value={formData.enrollment_term}
+                                    onChange={(e) =>
+                                        setData(
+                                            'enrollment_term',
+                                            e.target.value,
+                                        )
+                                    }
+                                />
+                            </Field>
+                            <Field>
+                                <FieldLabel>Enrollment Status</FieldLabel>
+                                <Select
+                                    value={formData.enrollment_status}
+                                    onValueChange={(val) =>
+                                        setData('enrollment_status', val)
+                                    }
+                                >
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Select status" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="Enrolled">
+                                            Enrolled
+                                        </SelectItem>
+                                        <SelectItem value="Dropped">
+                                            Dropped
+                                        </SelectItem>
+                                        <SelectItem value="Graduated">
+                                            Graduated
+                                        </SelectItem>
+                                        <SelectItem value="Inactive">
+                                            Inactive
+                                        </SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </Field>
+                        </div>
+                    </FieldGroup>
+                </FieldSet>
+
+                {/* Footer Actions */}
+                <div className="flex items-center gap-4 border-t pt-4">
+                    <Button type="submit" disabled={processing}>
+                        {processing ? 'Saving...' : 'Update Student'}
+                    </Button>
+                    <Button
+                        variant="outline"
+                        type="button"
+                        onClick={() => router.visit(`/students`)}
+                    >
+                        Cancel
+                    </Button>
+                </div>
             </form>
         </div>
     );

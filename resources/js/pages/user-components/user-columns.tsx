@@ -16,15 +16,7 @@ import {
 import { Checkbox } from '@/components/ui/checkbox';
 import { Copy, Eye, Pencil, Trash2, BookOpen } from 'lucide-react';
 
-interface ColumnProps {
-    onViewSubject: (student: any) => void;
-    onViewEdit: (student: any) => void;
-}
-
-export const columns = ({
-    onViewSubject,
-    onViewEdit,
-}: ColumnProps): ColumnDef<any>[] => [
+export const columns: ColumnDef<any>[] = [
     {
         id: 'select',
         header: ({ table }) => (
@@ -50,7 +42,7 @@ export const columns = ({
         enableHiding: false,
     },
     {
-        accessorKey: 'fname',
+        accessorKey: 'name',
         header: ({ column }) => {
             return (
                 <Button
@@ -59,14 +51,14 @@ export const columns = ({
                         column.toggleSorting(column.getIsSorted() === 'asc')
                     }
                 >
-                    First Name
+                    Name
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             );
         },
     },
     {
-        accessorKey: 'mname',
+        accessorKey: 'email',
         header: ({ column }) => {
             return (
                 <Button
@@ -75,14 +67,14 @@ export const columns = ({
                         column.toggleSorting(column.getIsSorted() === 'asc')
                     }
                 >
-                    Middle Name
+                    Email
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             );
         },
     },
     {
-        accessorKey: 'lname',
+        accessorKey: 'role',
         header: ({ column }) => {
             return (
                 <Button
@@ -98,33 +90,8 @@ export const columns = ({
         },
     },
     {
-        accessorKey: 'gender',
-        header: 'Gender',
-    },
-    {
-        accessorKey: 'student_number',
-        header: 'Student Number',
-    },
-    {
-        accessorKey: 'year_level',
-        header: 'Year Level',
-        cell: ({ row }) => {
-            const value = row.getValue('year_level');
-
-            const labels: Record<string, string> = {
-                FirstYear: '1st Year',
-                SecondYear: '2nd Year',
-                ThirdYear: '3rd Year',
-                FourthYear: '4th Year',
-                FifthYear: '5th Year',
-            };
-
-            return labels[value as string] || value;
-        },
-    },
-    {
-        accessorKey: 'program_code',
-        header: 'Program',
+        accessorKey: 'email_verified_at',
+        header: 'Email Verified At',
     },
     {
         id: 'actions',
@@ -160,13 +127,6 @@ export const columns = ({
                             {'/'}
                             <Pencil className="mr-2 h-4 w-4" />
                             View/Edit
-                        </DropdownMenuItem>
-
-                        <DropdownMenuItem
-                            onClick={() => onViewSubject(student)}
-                        >
-                            <BookOpen className="mr-2 h-4 w-4" />
-                            View Subjects
                         </DropdownMenuItem>
 
                         <DropdownMenuSeparator />

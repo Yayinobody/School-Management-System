@@ -36,11 +36,20 @@ import {
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
     data: TData[];
+    filterColumn: string;
 }
+
+const columnLabels: Record<string, string> = {
+    student_number: 'Student Number',
+    employee_number: 'Employee Number',
+    name: 'Name',
+
+};
 
 export function DataTable<TData, TValue>({
     columns,
     data,
+    filterColumn
 }: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -76,14 +85,14 @@ export function DataTable<TData, TValue>({
         <div>
 
         <div className="p-4 flex items-center py-4">
-                <Input
-                  placeholder="Filter emails..."
-                  value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
-                  onChange={(event) =>
-                    table.getColumn("email")?.setFilterValue(event.target.value)
-                  }
-                  className="max-w-sm"
-                />
+            <Input
+            placeholder={`Filter by ${columnLabels[filterColumn] ?? filterColumn}...`}
+              value={(table.getColumn(filterColumn)?.getFilterValue() as string) ?? ""}
+              onChange={(event) => {
+                  table.getColumn(filterColumn)?.setFilterValue(event.target.value);
+              }}
+              className="max-w-sm"
+            />
                 <DropdownMenu>
                           <DropdownMenuTrigger asChild>
                             <Button variant="outline" className="ml-auto">
