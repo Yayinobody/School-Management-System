@@ -2,10 +2,10 @@
 
 ### Dashboard
 
-Students Card
-Enrollments Card
-Sections Card
-Teachers Card
+- Students Card
+- Enrollments Card
+- Sections Card
+- Teachers Card
 
 ### Users
 
