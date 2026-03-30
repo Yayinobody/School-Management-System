@@ -9,6 +9,21 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Student extends Model
 {
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($student) {
+            $year = now()->format('Y');
+            $month = now()->format('m');
+
+                $count = self::whereYear('created_at', $year)
+                             ->whereMonth('created_at', $month)
+                             ->count() + 1;
+
+                $student->student_number = $year . $month . str_pad($count, 3, '0', STR_PAD_LEFT);
+            });
+    }
     protected $fillable = [
         "user_id",
         "fname",
@@ -33,4 +48,5 @@ class Student extends Model
     {
         return $this->hasOne(Enrollment::class);
     }
+
 }

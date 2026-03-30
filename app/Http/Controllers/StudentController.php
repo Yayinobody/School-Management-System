@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreStudentRequest;
 use App\Models\Student;
-use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
@@ -32,28 +32,26 @@ class StudentController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreStudentRequest $request)
     {
         $validated = $request->validated();
-        $student = new Student;
 
+        $student = Student::create($validated);
+
+        return response()->json(
+        [
+            "message"=>"Student Created Successfully"
+        ],201
+        );
 
     }
 
     /**
      * Display the specified resource.
      */
-    public function showProfile(Student $student)
+    public function show(Student $student)
     {
         $student->load(['user:id,email,name',
         'enrollment:id,student_id,program_id,term_id,status',
@@ -95,20 +93,20 @@ class StudentController extends Controller
         return response()->json($data);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Student $student)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Student $student)
+    public function update(StoreStudentRequest $request, Student $student)
     {
-        //
+        $validated = $request->validated();
+        $student->update($validated);
+
+        return response()->json([
+            "message" => "Student Updated Successfully",
+            "data" => $student
+        ], 200);
     }
 
     /**
