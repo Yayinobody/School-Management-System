@@ -37,6 +37,7 @@ class StudentController extends Controller
     public function create()
     {
 
+        $student = new Student;
     }
 
     /**
