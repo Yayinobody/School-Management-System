@@ -37,14 +37,14 @@ class StudentController extends Controller
     public function create()
     {
 
-        $student = new Student;
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreStudentRequest $request)
     {
+        $validated = $request->validated();
         $student = new Student;
 
 

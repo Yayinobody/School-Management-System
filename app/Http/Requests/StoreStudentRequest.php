@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateStudent extends FormRequest
+class StoreStudentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,6 @@ class CreateStudent extends FormRequest
             "mname"=>"required",
             "lname"=>"required",
             "gender"=>"required",
-            "student_number"=>"required",
             "birthday"=>"required",
         ];
     }
