@@ -91,11 +91,11 @@ export default function Welcome({
                         <RoleModule
                             icon={<ShieldCheck size={32} />}
                             title="Administrative Services"
-                            description="Oversee institutional architecture, manage user credentials, and govern departmental hierarchies."
+                            description="Oversee institutional architecture, manage user credentials, and govern collegeal hierarchies."
                             points={[
                                 'Personnel Management',
                                 'Academic Programs',
-                                'Departmental Oversight',
+                                'Collegeal Oversight',
                             ]}
                         />
 

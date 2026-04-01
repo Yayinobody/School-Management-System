@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Teacher;
-use App\Http\Request\StoreTeacherRequest;
+use App\Http\Requests\StoreTeacherRequest;
 use Illuminate\Http\Request;
 
 class TeacherController extends Controller
@@ -39,7 +39,7 @@ class TeacherController extends Controller
     {
         $validated = $request->validated();
 
-        $student = Student::create($validated);
+        $teacher = Teacher::create($validated);
 
         return response()->json(
         [
@@ -70,20 +70,19 @@ class TeacherController extends Controller
         dd($data);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Teacher $teacher)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Teacher $teacher)
+    public function update(StoreTeacherRequest $request, Teacher $teacher)
     {
-        //
+        $validated = $request->validated();
+        $teacher = update($validated);
+
+        return response()->json([
+            "message" => "Teacher Updated Succesfully",
+            "data" => $teacher
+        ], 200);
     }
 
     /**
@@ -91,6 +90,11 @@ class TeacherController extends Controller
      */
     public function destroy(Teacher $teacher)
     {
-        //
+        $teacher->delete();
+
+        return response()->json(
+        [
+            "message"=>"Teacher has been deleted."
+        ], 200);
     }
 }

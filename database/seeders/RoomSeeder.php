@@ -3,16 +3,16 @@
 namespace Database\Seeders;
 
 use App\Models\Room;
-use App\Models\Department;
+use App\Models\College;
 use Illuminate\Database\Seeder;
 
 class RoomSeeder extends Seeder
 {
     public function run(): void
     {
-        $departments = Department::all()->keyBy('code');
+        $colleges = College::all()->keyBy('code');
 
-        $roomsByDepartment = [
+        $roomsByCollege = [
 
             'CAS' => [
                 'start' => 301,
@@ -29,10 +29,10 @@ class RoomSeeder extends Seeder
 
         ];
 
-        foreach ($roomsByDepartment as $code => $data) {
+        foreach ($roomsByCollege as $code => $data) {
 
-            if (!isset($departments[$code])) {
-                $this->command->error("$code department not found.");
+            if (!isset($colleges[$code])) {
+                $this->command->error("$code college not found.");
                 continue;
             }
 
@@ -40,7 +40,7 @@ class RoomSeeder extends Seeder
 
                 Room::create([
                     'name' => "{$code} {$i}",
-                    'department_id' => $departments[$code]->id,
+                    'college_id' => $colleges[$code]->id,
                     'capacity' => $data['capacity'],
                 ]);
             }

@@ -15,6 +15,16 @@ User Table
 - role
 - email_verified_at
 
+View
+- name
+- email
+- role
+- email_verified_at
+- fullname
+- gender
+- birthday
+- program_code
+
 ### Teachers
 
 Teacher Table

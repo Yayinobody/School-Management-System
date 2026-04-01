@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreUserRequest;
 
 class UserController extends Controller
 {
@@ -27,19 +28,17 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        $student = User::create($validated);
+
+        return response()->json([
+        "message" => "User Created Successully"
+        ], 200);
     }
 
     /**
@@ -47,15 +46,13 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
-    }
+        $user = load([]);
+        $data = [
+            "name" => $user->name,
+            "email" => $user->email,
+            "role" => $user->role,
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(User $user)
-    {
-        //
+        ];
     }
 
     /**

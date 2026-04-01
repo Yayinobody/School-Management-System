@@ -6,14 +6,14 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class DepartmentSeeder extends Seeder
+class CollegeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        DB::table('departments')->insert([
+        DB::table('colleges')->insert([
             [
                 'code' => 'CAS',
                 'title' => 'College of Arts and Sciences',

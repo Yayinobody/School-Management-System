@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Program extends Model
 {
-    protected $fillable = ["department_id", "code", "title"];
+    protected $fillable = ["college_id", "code", "title"];
 
-    public function department(): BelongsTo
+    public function college(): BelongsTo
     {
-        return $this->belongsTo(Department::class);
+        return $this->belongsTo(College::class);
     }
 
     public function enrollments(): HasMany

@@ -39,8 +39,8 @@ const menuGroups = [
         label: 'Academic Management',
         items: [
             {
-                title: 'Departments',
-                href: '/academic/departments',
+                title: 'Colleges',
+                href: '/academic/colleges',
                 icon: Library,
             },
             {

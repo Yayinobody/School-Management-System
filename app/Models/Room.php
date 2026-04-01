@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Room extends Model
 {
-    protected $fillable = ["name", "department_id", "capacity"];
+    protected $fillable = ["name", "college_id", "capacity"];
 
-    public function department(): BelongsTo
+    public function college(): BelongsTo
     {
-        return $this->belongsTo(Department::class);
+        return $this->belongsTo(College::class);
     }
 }

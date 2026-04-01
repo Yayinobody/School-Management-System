@@ -12,7 +12,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::with(['enrollment:id,student_id,program_id','enrollment.program:id,code'])
+        $students = Student::with(['enrollment:id,student_id,program_id',
+        'enrollment.program:id,code'])
         ->get()
         ->map( function ($student){
             return[
