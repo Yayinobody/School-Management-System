@@ -46,14 +46,39 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $user = load([]);
+        $user = load(['student','faculty']);
         $data = [
             "name" => $user->name,
             "email" => $user->email,
             "role" => $user->role,
         ];
 
-        return
+        if ($user->student){
+            $data['type'] = 'student';
+            $data['details'] = [
+            $data['fname'] => $user->student->fname,
+            $data['mname'] => $user->student->mname,
+            $data['lname'] => $user->student->lname,
+            $data['gender'] => $user->student->gender,
+            $data['birthday'] => $user->student->birthday,
+            $data['student_number'] = $user->student->student_number,
+            $data['year_level'] = $user->student->year_level,
+            ];
+        }
+        else if ($user->faculty) {
+            $data['type'] = 'faculty';
+            $data['details'] = [
+            $data['fname'] => $user->faculty->fname,
+            $data['mname'] => $user->faculty->mname,
+            $data['lname'] => $user->faculty->lname,
+            $data['gender'] => $user->faculty->gender,
+            $data['birthday'] => $user->faculty->birthday,
+            $data['employee_number'] = $user->faculty->employee_number,
+            $data['program_id'] = $user->faculty->program_id,
+            ];
+        }
+        dd($data);
+        // return response()->json($data, 200);
     }
 
     /**
