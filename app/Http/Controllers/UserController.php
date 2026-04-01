@@ -77,8 +77,7 @@ class UserController extends Controller
             $data['program_id'] = $user->faculty->program_id,
             ];
         }
-        dd($data);
-        // return response()->json($data, 200);
+        return response()->json($data, 200);
     }
 
     /**
@@ -94,6 +93,10 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return response()->json([
+        "message" => "User Deleted Succesfully"
+        ], 200);
     }
 }
