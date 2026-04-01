@@ -19,7 +19,7 @@ class DashboardController extends Controller
         $students = User::role('student')->count();
         $enrollments = Enrollment::count();
         $sections = Section::count();
-        $teachers = User::role('teacher')->count();
+        $faculties = User::role('faculty')->count();
 
         $enrollmentByProgram = Program::select('code')->withCount('enrollments')->get()->toArray();
 
@@ -31,7 +31,7 @@ class DashboardController extends Controller
             'students'=>$students,
             'enrollments'=> $enrollments,
             'sections'=> $sections,
-            'teachers'=>$teachers,
+            'faculties'=>$faculties,
             'enrollmentByPrograms'=>$enrollmentByProgram,
             'activeSchoolYear'=>$activeSchoolYear,
             'activeTerm'=>$activeTerm

@@ -33,8 +33,8 @@ class Subject extends Model
         return $this->belongsToMany(Program::class, 'program_subjects')->withTimestamps();
     }
 
-    public function teachers(): BelongsToMany
+    public function faculties(): BelongsToMany
     {
-        return $this->belongsToMany(Teacher::class, 'teacher_subjects')->withTimestamps();
+        return $this->belongsToMany(Faculty::class, 'Faculty_subjects')->withTimestamps();
     }
 }

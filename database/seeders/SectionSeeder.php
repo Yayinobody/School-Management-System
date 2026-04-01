@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Section;
 use App\Models\Subject;
-use App\Models\Teacher;
+use App\Models\Faculty;
 use App\Models\Term;
 use App\Models\Room;
 use Illuminate\Database\Seeder;
@@ -15,7 +15,7 @@ class SectionSeeder extends Seeder
     public function run(): void
     {
         $subjects = Subject::all();
-        $teachers = Teacher::all();
+        $faculties = Faculty::all();
         $terms = Term::all();
         $rooms = Room::all();
 
@@ -43,8 +43,8 @@ class SectionSeeder extends Seeder
                         'section_code' => $subject->code . '-' . $i,
                     ],
                     [
-                        'teacher_id' => $teachers->isNotEmpty()
-                            ? $teachers->random()->id
+                        'Faculty_id' => $faculties->isNotEmpty()
+                            ? $faculties->random()->id
                             : null,
 
                         'room_id' => $rooms->isNotEmpty()

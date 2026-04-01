@@ -58,7 +58,7 @@ class CollegeSeeder extends Seeder
             ],
             [
                 'code' => 'CTE',
-                'title' => 'College of Teacher Education',
+                'title' => 'College of Faculty Education',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

@@ -66,7 +66,7 @@ const menuGroups = [
         label: 'People',
         items: [
             { title: 'Students', href: '/students', icon: Users },
-            { title: 'Teachers', href: '/teachers', icon: UserCheck },
+            { title: 'Faculties', href: '/faculties', icon: UserCheck },
             { title: 'Users & Accounts', href: '/users', icon: ShieldCheck },
         ],
     },

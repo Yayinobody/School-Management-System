@@ -29,10 +29,10 @@ export default function Register() {
 
                 <Button
                     type="button"
-                    variant={role === 'teacher' ? 'default' : 'outline'}
-                    onClick={() => setRole('teacher')}
+                    variant={role === 'faculty' ? 'default' : 'outline'}
+                    onClick={() => setRole('faculty')}
                 >
-                    Teacher
+                    Faculty
                 </Button>
             </div>
             <Head title="Register" />
@@ -95,7 +95,7 @@ export default function Register() {
                                 </div>
                             )}
 
-                            {role === 'teacher' && (
+                            {role === 'faculty' && (
                                 <div className="grid gap-2">
                                     <Label htmlFor="employee_number">
                                         Employee Number

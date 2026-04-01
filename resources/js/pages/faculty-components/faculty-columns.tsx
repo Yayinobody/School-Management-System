@@ -101,7 +101,7 @@ export const columns: ColumnDef<any>[] = [
     {
         id: 'actions',
         cell: ({ row }) => {
-            const teacher = row.original;
+            const faculty = row.original;
 
             return (
                 <DropdownMenu>
@@ -118,7 +118,7 @@ export const columns: ColumnDef<any>[] = [
                         <DropdownMenuItem
                             onClick={() =>
                                 navigator.clipboard.writeText(
-                                    teacher.employeeNumber,
+                                    faculty.employeeNumber,
                                 )
                             }
                         >
@@ -130,7 +130,7 @@ export const columns: ColumnDef<any>[] = [
 
                         {/* View */}
                         <DropdownMenuItem
-                            onClick={() => console.log('View', teacher.id)}
+                            onClick={() => console.log('View', faculty.id)}
                         >
                             <Eye className="mr-2 h-4 w-4" />
                             View Profile
@@ -138,7 +138,7 @@ export const columns: ColumnDef<any>[] = [
 
                         {/* Update */}
                         <DropdownMenuItem
-                            onClick={() => console.log('Edit', teacher.id)}
+                            onClick={() => console.log('Edit', faculty.id)}
                         >
                             <Pencil className="mr-2 h-4 w-4" />
                             Edit Details
@@ -149,10 +149,10 @@ export const columns: ColumnDef<any>[] = [
                         {/* Delete - Destructive */}
                         <DropdownMenuItem
                             className="text-destructive focus:text-destructive"
-                            onClick={() => console.log('Delete', teacher.id)}
+                            onClick={() => console.log('Delete', faculty.id)}
                         >
                             <Trash2 className="mr-2 h-4 w-4" />
-                            Delete Teacher
+                            Delete Faculty
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

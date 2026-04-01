@@ -6,7 +6,7 @@ use App\Concerns\PasswordValidationRules;
 use App\Concerns\ProfileValidationRules;
 use App\Models\User;
 use App\Models\Student;
-use App\Models\Teacher;
+use App\Models\Faculty;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
@@ -24,7 +24,7 @@ class CreateNewUser implements CreatesNewUsers
      {
          Validator::make($input, [
              ...$this->profileRules(),
-             'role' => ['required','in:student,teacher'],
+             'role' => ['required','in:student,faculty'],
              'password' => $this->passwordRules(),
          ])->validate();
 
@@ -50,12 +50,12 @@ class CreateNewUser implements CreatesNewUsers
              }
          }
 
-         if ($input['role'] === 'teacher') {
+         if ($input['role'] === 'faculty') {
              Validator::make($input, [
                  'employee_number' => ['required', 'string'],
              ])->validate();
 
-             $record = Teacher::where('employee_number', $input['employee_number'])->first();
+             $record = Faculty::where('employee_number', $input['employee_number'])->first();
 
              if (! $record) {
                  throw ValidationException::withMessages([

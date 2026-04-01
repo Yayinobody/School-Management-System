@@ -61,9 +61,9 @@ class NorsuAiController extends Controller
             ];
         }
 
-        if ($role === 'teacher') {
+        if ($role === 'faculty') {
             return [
-                'type' => 'teacher',
+                'type' => 'faculty',
             ];
         }
 

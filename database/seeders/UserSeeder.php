@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Student;
-use App\Models\Teacher;
+use App\Models\Faculty;
 use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $studentRole = Role::where('name', 'student')->first();
-        $teacherRole = Role::where('name', 'teacher')->first();
+        $FacultyRole = Role::where('name', 'faculty')->first();
         $adminRole = Role::where('name', 'admin')->first();
 
         $usedStudentNumbers = [];
@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
 
         User::factory(50)->create()->each(function ($user) use (
             $studentRole,
-            $teacherRole,
+            $FacultyRole,
             &$usedStudentNumbers,
             &$usedEmployeeNumbers
         ) {
@@ -53,7 +53,7 @@ class UserSeeder extends Seeder
 
             } else {
 
-                $user->assignRole($teacherRole);
+                $user->assignRole($FacultyRole);
 
                 // 9–10 digit employee number
                 do {
@@ -62,7 +62,7 @@ class UserSeeder extends Seeder
 
                 $usedEmployeeNumbers[] = $employeeNumber;
 
-                Teacher::create([
+                Faculty::create([
                     'user_id' => $user->id,
                     'program_id' => 1,
                     'fname' => $user->name,
@@ -83,7 +83,7 @@ class UserSeeder extends Seeder
 
         $admin->assignRole('admin');
 
-        Teacher::create([
+        Faculty::create([
             'user_id' => $admin->id,
             'program_id' => 1,
             'fname' => $admin->name,

@@ -5,7 +5,7 @@
 - Students Card
 - Enrollments Card
 - Sections Card
-- Teachers Card
+- Faculties Card
 
 ### Users
 
@@ -25,9 +25,9 @@ View
 - birthday
 - program_code
 
-### Teachers
+### Faculties
 
-Teacher Table
+Faculty Table
 - fname
 - mname
 - lname

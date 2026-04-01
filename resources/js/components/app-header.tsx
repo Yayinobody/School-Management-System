@@ -41,7 +41,7 @@ import { UserMenuContent } from '@/components/user-menu-content';
 import { useCurrentUrl } from '@/hooks/use-current-url';
 import { useInitials } from '@/hooks/use-initials';
 import { cn, toUrl } from '@/lib/utils';
-import { dashboard, teachers, students } from '@/routes';
+import { dashboard, faculties, students } from '@/routes';
 import type { BreadcrumbItem, NavItem } from '@/types';
 
 type Props = {
@@ -55,8 +55,8 @@ const mainNavItems: NavItem[] = [
         icon: LayoutGrid,
     },
     {
-        title: 'Teachers',
-        href: teachers(),
+        title: 'Faculties',
+        href: faculties(),
         icon: User,
     },
     {

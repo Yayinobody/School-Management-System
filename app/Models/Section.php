@@ -11,7 +11,7 @@ class Section extends Model
 {
     protected $fillable = [
         "subject_id",
-        "teacher_id",
+        "Faculty_id",
         "room_id",
         "term_id",
         "section_code",
@@ -32,9 +32,9 @@ class Section extends Model
         return $this->hasOne(Term::class);
     }
 
-    public function teacher(): BelongsTo
+    public function faculty(): BelongsTo
     {
-        return $this->belongsTo(Teacher::class);
+        return $this->belongsTo(Faculty::class);
     }
 
     public function subjectEnrollment(): HasMany

@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
             $table->foreignId('subject_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('teacher_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('faculty_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('room_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('term_id')->nullable()->constrained()->nullOnDelete();
             $table->string('section_code', 10)->unique();

@@ -21,9 +21,9 @@ class Program extends Model
         return $this->hasMany(Enrollment::class);
     }
 
-    public function teachers(): HasMany
+    public function faculties(): HasMany
     {
-        return $this->hasMany(Teacher::class);
+        return $this->hasMany(Faculty::class);
     }
 
     public function subjects(): BelongsToMany

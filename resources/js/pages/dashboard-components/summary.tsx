@@ -11,13 +11,13 @@ interface StatisticsCardPreviewProps {
     studentCount: number;
     enrollmentCount: number;
     sectionCount: number;
-    teacherCount: number;
+    FacultyCount: number;
 }
 const StatisticsCardPreview = ({
     studentCount,
     enrollmentCount,
     sectionCount,
-    teacherCount,
+    FacultyCount,
 }: StatisticsCardPreviewProps) => {
     const StatisticsCardData = [
         {
@@ -40,8 +40,8 @@ const StatisticsCardPreview = ({
         },
         {
             icon: <Clock8Icon className="size-4" />,
-            value: teacherCount.toString(),
-            title: 'Teachers',
+            value: FacultyCount.toString(),
+            title: 'Faculties',
             changePercentage: '-2.5%',
         },
     ];

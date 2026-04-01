@@ -15,14 +15,14 @@ interface SummaryProps {
     students: number;
     enrollments: number;
     sections: number;
-    teachers: number;
+    faculties: number;
 }
 
 export default function Dashboard({
     students,
     enrollments,
     sections,
-    teachers,
+    faculties,
 }: SummaryProps) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -38,7 +38,7 @@ export default function Dashboard({
                         studentCount={students}
                         enrollmentCount={enrollments}
                         sectionCount={sections}
-                        teacherCount={teachers}
+                        FacultyCount={faculties}
                     />
                 </div>
             </div>

@@ -35,8 +35,8 @@ class RoleSeeder extends Seeder
         $adminRole = Role::firstOrCreate(['name' => 'admin']);
         $adminRole->syncPermissions(Permission::all());
 
-        $teacherRole = Role::firstOrCreate(['name' => 'teacher']);
-        $teacherRole->syncPermissions([
+        $FacultyRole = Role::firstOrCreate(['name' => 'faculty']);
+        $FacultyRole->syncPermissions([
             'create grades',
             'edit grades',
             'view grades',

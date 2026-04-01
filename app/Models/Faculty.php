@@ -8,14 +8,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Teacher extends Model
+class Faculty extends Model
 {
     use SoftDeletes;
     protected static function boot()
     {
         parent::boot();
 
-        static::creating(function ($teacher) {
+        static::creating(function ($faculty) {
             $year = now()->format('Y');
             $month = now()->format('m');
 
@@ -23,7 +23,7 @@ class Teacher extends Model
                              ->whereMonth('created_at', $month)
                              ->count() + 1;
 
-                $teacher->student_number = $year . $month . str_pad($count, 3, '0', STR_PAD_LEFT);
+                $faculty->student_number = $year . $month . str_pad($count, 3, '0', STR_PAD_LEFT);
             });
     }
     protected $fillable = [
@@ -54,6 +54,6 @@ class Teacher extends Model
 
     public function subjects(): BelongsToMany
     {
-        return $this->belongsToMany(Subject::class, 'teacher_subjects')->withTimestamps();
+        return $this->belongsToMany(Subject::class, 'Faculty_subjects')->withTimestamps();
     }
 }

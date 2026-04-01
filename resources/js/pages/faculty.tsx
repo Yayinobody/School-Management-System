@@ -1,18 +1,18 @@
 import { Head } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import { DataTable } from '@/components/ui/data-table';
-import { teachers } from '@/routes';
+import { faculties } from '@/routes';
 import type { BreadcrumbItem } from '@/types';
-import { columns } from './teacher-components/teacher-columns';
+import { columns } from './faculty-components/faculty-columns';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Teachers',
-        href: teachers(),
+        title: 'Faculties',
+        href: faculties(),
     },
 ];
 
-interface Teacher {
+interface Faculty {
     id: string;
     fname: string;
     mname: string;
@@ -21,19 +21,19 @@ interface Teacher {
     employeeNumber: string;
     program: string;
 }
-interface TeacherProps {
-    data: Teacher[];
+interface FacultyProps {
+    data: Faculty[];
 }
-export default function Teachers({ data }: TeacherProps) {
+export default function Faculties({ data }: FacultyProps) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Teachers" />
+            <Head title="Faculties" />
 
             <div className="flex flex-col gap-4 p-4 pt-6 md:p-8">
                 <div className="flex items-center justify-between">
                     <div className="space-y-1">
                         <h2 className="text-2xl font-bold tracking-tight">
-                            Teachers
+                            Faculties
                         </h2>
                         <p className="text-sm text-muted-foreground">
                             View and manage your faculty directory and
