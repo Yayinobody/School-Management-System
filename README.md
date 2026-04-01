@@ -25,6 +25,24 @@ Teacher Table
 - employee_number
 - program_code
 
+View
+- fname
+- mname
+- lname
+- gender
+- employee_number
+- program_code
+- birthday
+
+Store/Update
+- fname
+- mname
+- lname
+- gender
+- employee_number
+- program_code
+- birthday
+
 
 ### Students
 
@@ -54,3 +72,11 @@ View Subject for every Student
 - section_code
 - subject_code
 - enrollment_status
+
+Store/Update
+- fname
+- mname
+- lname
+- gender
+- year_level
+- birthday

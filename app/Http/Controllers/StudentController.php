@@ -43,8 +43,7 @@ class StudentController extends Controller
         return response()->json(
         [
             "message"=>"Student Created Successfully"
-        ],201
-        );
+        ], 201);
 
     }
 
@@ -53,7 +52,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        $student->load(['user:id,email,name',
+        $student->load([
         'enrollment:id,student_id,program_id,term_id,status',
         'enrollment.program:id,code',
         'enrollment.term:id,semester']);
@@ -103,7 +102,8 @@ class StudentController extends Controller
         $validated = $request->validated();
         $student->update($validated);
 
-        return response()->json([
+        return response()->json(
+        [
             "message" => "Student Updated Successfully",
             "data" => $student
         ], 200);
@@ -114,6 +114,11 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        $student->delete();
+
+        return response()->json(
+        [
+            "message"=>"Student has been deleted."
+        ], 200);
     }
 }

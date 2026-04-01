@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('student_number')->unique();
             $table->enum('year_level', array_column(YearLevel::cases(),'value'));
             $table->date('birthday')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

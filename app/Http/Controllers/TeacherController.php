@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Teacher;
-// use App\Models\User;
+use App\Http\Request\StoreTeacherRequest;
 use Illuminate\Http\Request;
 
 class TeacherController extends Controller
@@ -33,19 +33,18 @@ class TeacherController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreTeacherRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        $student = Student::create($validated);
+
+        return response()->json(
+        [
+            "message"=>"Teacher Created Successfully"
+        ], 201);
     }
 
     /**
@@ -53,7 +52,22 @@ class TeacherController extends Controller
      */
     public function show(Teacher $teacher)
     {
-        //
+        $teacher->load([
+        'sections:id,section_code,subject_id',
+        'section.subject:title'
+        ]);
+
+        $data = [
+            'id' => $teacher->id,
+            'fname' => $teacher->fname,
+            'mname' => $teacher->mname,
+            'lname' => $teacher->lname,
+            'gender' => $teacher->gender,
+            'employee_number' => $teacher->employee_number,
+            'birthday' => $teacher->birthday,
+        ];
+
+        dd($data);
     }
 
     /**
