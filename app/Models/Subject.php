@@ -35,6 +35,6 @@ class Subject extends Model
 
     public function faculties(): BelongsToMany
     {
-        return $this->belongsToMany(Faculty::class, 'Faculty_subjects')->withTimestamps();
+        return $this->belongsToMany(Faculty::class, 'faculty_subjects')->withTimestamps();
     }
 }
