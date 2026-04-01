@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->enum("gender", array_column(Gender::cases(), "value"));
             $table->string("employee_number")->unique();
             $table->date("birthday")->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
