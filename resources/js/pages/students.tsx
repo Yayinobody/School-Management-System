@@ -3,7 +3,7 @@ import { useState } from 'react';
 import AppLayout from '@/layouts/app-layout';
 import { DataTable } from '@/components/ui/data-table';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { students } from '@/routes';
+import { students, showStudent, showStudentSubjects } from '@/routes';
 import type { BreadcrumbItem } from '@/types';
 
 import { columns as makeColumns } from './student-components/student-columns';
@@ -23,15 +23,7 @@ interface StudentBasic {
     program_code: string;
 }
 
-interface StudentDetail {
-    id: string;
-    fname: string;
-    mname: string;
-    lname: string;
-    gender: string;
-    student_number: string;
-    year_level: string;
-    program_code: string;
+interface StudentDetail extends StudentBasic {
     birthday: string;
     enrollment?: string;
     enrollmentTerm?: string;
@@ -74,18 +66,15 @@ export default function Students({ data }: StudentsProps) {
 
     const handleViewEdit = async (student: StudentBasic) => {
         setActiveTab('edit');
-        const studentData = await fetchStudentData(
-            `/students/profile/${student.id}`,
-        );
+        const url = showStudent.url({ student: student.id });
+        const studentData = await fetchStudentData(url);
         if (studentData) setModalStudent(studentData);
     };
 
     const handleViewSubject = async (student: StudentBasic) => {
         setActiveTab('subjects');
-        const subjects = await fetchStudentData(
-            `/students/subjects/${student.id}`,
-        );
-        console.log(subjects);
+        const url = showStudentSubjects.url({ student: student.id });
+        const subjects = await fetchStudentData(url);
         if (subjects)
             setModalStudent({ ...student, subjects } as StudentDetail);
     };
