@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Faculty;
 use App\Http\Requests\StoreFacultyRequest;
-use Illuminate\Http\Request;
 
 class FacultyController extends Controller
 {
@@ -54,8 +53,9 @@ class FacultyController extends Controller
     public function show(Faculty $faculty)
     {
         $faculty->load([
-        'sections:id,section_code,subject_id',
-        'section.subject:title'
+        'sections:id,section_code,subject_id,program_id',
+        'section.subject:title',
+        'section.program:code'
         ]);
 
         $data = [
@@ -65,6 +65,7 @@ class FacultyController extends Controller
             'lname' => $faculty->lname,
             'gender' => $faculty->gender,
             'employee_number' => $faculty->employee_number,
+            'program_code' => $faculty->program->code,
             'birthday' => $faculty->birthday,
         ];
 
