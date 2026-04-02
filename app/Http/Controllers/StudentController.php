@@ -73,7 +73,6 @@ class StudentController extends Controller
             'enrollment_status'=>$student->enrollment->status,
         ];
         return response()->json($data);
-
     }
 
     public function showSubjects(Student $student)
@@ -92,8 +91,6 @@ class StudentController extends Controller
 
         return response()->json($data);
     }
-
-
 
     /**
      * Update the specified resource in storage.
