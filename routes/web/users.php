@@ -7,7 +7,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('users');
     Route::post('/users/store',[UserController::class, 'store'])->name('storeUser');
     Route::get('/users/show/{user}',[UserController::class, 'show'])->name('showUser');
+    Route::put('/users/update/{user}',[UserController::class, 'update'])->name('updateUser');
     Route::delete('/users/delete/{user}', [UserController::class,'destroy'])->name('deleteUser');
-
-
 });
