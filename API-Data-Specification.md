@@ -1,0 +1,143 @@
+# Student-Management-System
+
+### Dashboard
+
+- Students Card
+- Enrollments Card
+- Sections Card
+- Faculties Card
+
+### Users
+
+User Table
+- name
+- email
+- role
+- email_verified_at
+
+View
+- name
+- email
+- role
+- email_verified_at
+- fname
+- mname
+- lname
+- gender
+- birthday
+- student_number/employee_number
+- year_level(students)
+- program_code
+
+Store/Update
+- name
+- email
+- role
+
+### Faculties
+
+Faculty Table
+- fname
+- mname
+- lname
+- gender
+- employee_number
+- program_code
+
+View
+- fname
+- mname
+- lname
+- gender
+- employee_number
+- program_code
+- birthday
+
+Store/Update
+- fname
+- mname
+- lname
+- gender
+- program_code
+- birthday
+
+### Students
+
+Student Table
+- fname
+- mname
+- lname
+- gender
+- student_number
+- year_level
+- program_code
+
+View 
+- fname
+- mname
+- lname
+- gender
+- student_number
+- year_level
+- program_code
+- birthday
+- enrollment
+- enrollment_term
+- enrollemnt_status
+
+View Subject for every Student
+- section_code
+- subject_code
+- enrollment_status
+
+Store/Update
+- fname
+- mname
+- lname
+- gender
+- year_level
+- birthday
+
+### College
+
+College Table
+- code
+- title
+- total_programs
+- total_rooms
+- total_faculties
+
+View
+- code
+- title
+- total_programs
+- total_rooms
+- total_faculties
+- total_enrollments
+- total_subjects
+
+Store/Update
+- code
+- title
+
+### Program
+
+Program Table
+- code
+- title
+- college_code
+- total_rooms
+- total_faculties
+
+View
+- code
+- title
+- college_code
+- total_rooms
+- total_faculties
+- total_enrollments
+- total_subjects
+
+Store/Update
+- code
+- title
