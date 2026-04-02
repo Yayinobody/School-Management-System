@@ -2,6 +2,7 @@
 
 use App\Enums\Gender;
 use App\Enums\YearLevel;
+use App\Enums\StudentStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -23,6 +24,7 @@ return new class extends Migration
             $table->string('student_number')->unique();
             $table->enum('year_level', array_column(YearLevel::cases(),'value'));
             $table->date('birthday')->nullable();
+            $table->enum('status', array_column(StudentStatus::cases(), 'value'));
             $table->softDeletes();
             $table->timestamps();
         });
