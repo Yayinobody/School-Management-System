@@ -16,6 +16,7 @@ return new class extends Migration
                     $table->foreignId('faculty_id')->constrained()->cascadeOnDelete();
                     $table->foreignId('subject_id')->constrained()->cascadeOnDelete();
                     $table->timestamps();
+                    $table->softDeletes();
 
                     $table->unique(['faculty_id', 'subject_id']);
                 });

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->decimal('lecture', 3, 1);
             $table->decimal('lab', 3, 1)->nullable();
             $table->enum('type', array_column(SubjectType::cases(), 'value'));
+            $table->softDeletes();
             $table->timestamps();
         });
     }

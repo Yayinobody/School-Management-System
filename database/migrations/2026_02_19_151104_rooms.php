@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('college_id')->constrained()->cascadeOnDelete();
             $table->string('code',10);
             $table->integer('capacity')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

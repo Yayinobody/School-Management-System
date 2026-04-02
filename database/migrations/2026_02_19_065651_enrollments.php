@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('program_id')->constrained()->cascadeOnDelete();
             $table->foreignId('term_id')->constrained()->cascadeOnDelete();
             $table->enum('status', array_column(EnrollmentStatus::cases(), 'value'));
+            $table->softDeletes();
             $table->timestamps();
         });
     }

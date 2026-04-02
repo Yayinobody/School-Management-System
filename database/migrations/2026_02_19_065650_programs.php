@@ -18,6 +18,7 @@ return new class extends Migration {
                 ->cascadeOnDelete();
             $table->string("code", 10)->unique();
             $table->string("title", 150);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -16,6 +16,8 @@ return new class extends Migration
         $table->foreignId('subject_enrollment_id')->constrained()->cascadeOnDelete();
         $table->decimal('grade', 3, 1)->nullable();
         $table->decimal('retake',3,1)->nullable();
+        $table->softDeletes();
+        $table->timestamps();
         });
     }
     /**

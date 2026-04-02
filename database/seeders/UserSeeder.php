@@ -49,6 +49,7 @@ class UserSeeder extends Seeder
                     'student_number' => $studentNumber,
                     'year_level' => rand(1, 5),
                     'birthday' => '2004-01-01',
+                    'status' => 'undergraduate'
                 ]);
 
             } else {

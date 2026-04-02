@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('section_id')->constrained()->cascadeOnDelete();
             $table->enum('day', array_column(Day::cases(), 'value'));
+            $table->softDeletes();
             $table->timestamps();
 
             $table->unique(['section_id','day']);

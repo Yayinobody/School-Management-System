@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->enum('status', array_column(TermStatus::cases(), 'value'));
+            $table->softDeletes();
             $table->timestamps();
         });
     }

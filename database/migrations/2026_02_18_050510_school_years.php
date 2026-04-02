@@ -17,6 +17,7 @@ return new class extends Migration
         $table->date('start_date');
         $table->date('end_date');
         $table->enum('status', array_column(SchoolYearStatus::cases(), 'value'));
+        $table->softDeletes();
         $table->timestamps();
     });
     }

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('student_id')->constrained()->cascadeOnDelete();
             $table->foreignId('section_id')->constrained()->cascadeOnDelete();
             $table->enum('status', array_column(SubjectEnrollmentStatus::cases(), 'value'));
+            $table->softDeletes();
             $table->timestamps();
 
             $table->unique(['student_id', 'section_id']);

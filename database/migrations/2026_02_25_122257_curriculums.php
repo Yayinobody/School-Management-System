@@ -17,7 +17,9 @@ return new class extends Migration
         $table->foreignId('subject_id')->constrained()->cascadeOnDelete();
         $table->integer('year');
         $table->integer('semester');
+        $table->softDeletes();
         $table->timestamps();
+
         $table->unique(['program_id','subject_id','year','semester']);
     });
     }

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->time('time_end');
             $table->unsignedSmallInteger('max_slots');
             $table->enum('status', array_column(SectionStatus::cases(), 'value'));
+            $table->softDeletes();
             $table->timestamps();
 
             $table->unique(['subject_id','term_id','section_code']);
