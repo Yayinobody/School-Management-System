@@ -23,7 +23,14 @@ View
 - fullname
 - gender
 - birthday
+- student_number/employee_number
+- year_level(students)
 - program_code
+
+Store/Update
+- name
+- email
+- role
 
 ### Faculties
 
@@ -49,7 +56,6 @@ Store/Update
 - mname
 - lname
 - gender
-- employee_number
 - program_code
 - birthday
 

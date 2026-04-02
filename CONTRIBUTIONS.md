@@ -22,11 +22,8 @@ Optional. The part of the project affected, e.g., `User`, `Auth`, `UI`, `API`.
 
 feat(User): add profile picture upload
 fix(Auth): correct login redirect
-
 style(UI): format header component
-
 docs(README): update usage instructions
-
 refactor(API): optimize query performance
 test(User): add registration form tests
 chore(deps): update npm packages
