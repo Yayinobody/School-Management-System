@@ -16,6 +16,7 @@ class Subject extends Model
         "description",
         "lecture",
         "lab",
+        "type",
     ];
 
     public function sections(): HasMany
