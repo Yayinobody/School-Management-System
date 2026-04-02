@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Room extends Model
 {
-    protected $fillable = ["name", "college_id", "capacity"];
+    protected $fillable = ["college_id", "code", "capacity"];
 
     public function college(): BelongsTo
     {

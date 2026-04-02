@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class College extends Model
 {
-    protected $fillable = ["name", "code", "title"];
+    protected $fillable = ["code", "title"];
 
     public function programs(): HasMany
     {
