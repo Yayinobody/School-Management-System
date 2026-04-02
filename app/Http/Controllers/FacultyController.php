@@ -43,7 +43,8 @@ class FacultyController extends Controller
 
         return response()->json(
         [
-            "message"=>"Faculty Created Successfully"
+            "message"=>"Faculty Created Successfully",
+             "data" => $faculty
         ], 201);
     }
 
