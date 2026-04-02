@@ -35,6 +35,7 @@ class Student extends Model
         "student_number",
         "year_level",
         "birthday",
+        "status"
     ];
 
     public function user(): BelongsTo
