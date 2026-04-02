@@ -56,25 +56,26 @@ class UserController extends Controller
         if ($user->student){
             $data['type'] = 'student';
             $data['details'] = [
-            $data['fname'] => $user->student->fname,
-            $data['mname'] => $user->student->mname,
-            $data['lname'] => $user->student->lname,
-            $data['gender'] => $user->student->gender,
-            $data['birthday'] => $user->student->birthday,
-            $data['student_number'] = $user->student->student_number,
-            $data['year_level'] = $user->student->year_level,
+            'fname' => $user->student->fname,
+            'mname' => $user->student->mname,
+            'lname' => $user->student->lname,
+            'gender' => $user->student->gender,
+            'birthday' => $user->student->birthday,
+            'student_number' => $user->student->student_number,
+            'year_level' => $user->student->year_level,
+            'program_code' => $user->student->program_code,
             ];
         }
         else if ($user->faculty) {
             $data['type'] = 'faculty';
             $data['details'] = [
-            $data['fname'] => $user->faculty->fname,
-            $data['mname'] => $user->faculty->mname,
-            $data['lname'] => $user->faculty->lname,
-            $data['gender'] => $user->faculty->gender,
-            $data['birthday'] => $user->faculty->birthday,
-            $data['employee_number'] = $user->faculty->employee_number,
-            $data['program_id'] = $user->faculty->program_id,
+            'fname' => $user->faculty->fname,
+            'mname' => $user->faculty->mname,
+            'lname' => $user->faculty->lname,
+            'gender' => $user->faculty->gender,
+            'birthday' => $user->faculty->birthday,
+            'employee_number' => $user->faculty->employee_number,
+            'program_code' => $user->faculty->program_code,
             ];
         }
         return response()->json($data, 200);
@@ -83,9 +84,15 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(StoreUserRequest $request, User $user)
     {
-        //
+        $validated = $request->validated();
+        $data = $user->update($validated);
+
+        return response()->json([
+        "message" => "User Updated Successully",
+        "data" => $data
+        ], 200);
     }
 
     /**
