@@ -70,7 +70,6 @@ export default function Students({ data }: StudentsProps) {
         const studentData = await fetchStudentData(url);
         if (studentData) setModalStudent(studentData);
     };
-
     const handleViewSubject = async (student: StudentBasic) => {
         setActiveTab('subjects');
         const url = showStudentSubjects.url({ student: student.id });
