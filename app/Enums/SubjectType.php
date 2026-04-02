@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum CurriculumType: string
+enum SubjectType: string
 {
     case Core ="Core";
     case Elective = "Elective";
