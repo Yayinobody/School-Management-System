@@ -34,10 +34,12 @@ class UserController extends Controller
     {
         $validated = $request->validated();
 
-        $student = User::create($validated);
+
+        $data = User::create($validated);
 
         return response()->json([
-        "message" => "User Created Successully"
+        "message" => "User Created Successully",
+        "data" => $data
         ], 200);
     }
 
@@ -46,7 +48,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $user = load(['student','faculty']);
+        $user->load(['student','faculty']);
         $data = [
             "name" => $user->name,
             "email" => $user->email,

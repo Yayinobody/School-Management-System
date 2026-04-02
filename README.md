@@ -56,7 +56,6 @@ Store/Update
 - mname
 - lname
 - gender
-- employee_number
 - program_code
 - birthday
 
