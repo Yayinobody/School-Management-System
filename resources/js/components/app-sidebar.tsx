@@ -78,38 +78,38 @@ const menuGroups = [
             { title: 'Rooms', href: '/rooms', icon: DoorOpen },
         ],
     },
-    {
-        label: 'Grading',
-        items: [
-            { title: 'Grades', href: '/grades', icon: FileText },
-            {
-                title: 'Grade Reports',
-                href: '/grades/reports',
-                icon: ClipboardList,
-            },
-        ],
-    },
-    {
-        label: 'Reports',
-        items: [
-            {
-                title: 'Enrollment Report',
-                href: '/reports/enrollment',
-                icon: FileSpreadsheet,
-            },
-            { title: 'Grade Summary', href: '/reports/grades', icon: FileText },
-            {
-                title: 'Student Transcript',
-                href: '/reports/transcript',
-                icon: FileText,
-            },
-            {
-                title: 'Room Utilization',
-                href: '/reports/rooms',
-                icon: DoorOpen,
-            },
-        ],
-    },
+    // {
+    //     label: 'Grading',
+    //     items: [
+    //         { title: 'Grades', href: '/grades', icon: FileText },
+    //         {
+    //             title: 'Grade Reports',
+    //             href: '/grades/reports',
+    //             icon: ClipboardList,
+    //         },
+    //     ],
+    // },
+    // {
+    //     label: 'Reports',
+    //     items: [
+    //         {
+    //             title: 'Enrollment Report',
+    //             href: '/reports/enrollment',
+    //             icon: FileSpreadsheet,
+    //         },
+    //         { title: 'Grade Summary', href: '/reports/grades', icon: FileText },
+    //         {
+    //             title: 'Student Transcript',
+    //             href: '/reports/transcript',
+    //             icon: FileText,
+    //         },
+    //         {
+    //             title: 'Room Utilization',
+    //             href: '/reports/rooms',
+    //             icon: DoorOpen,
+    //         },
+    //     ],
+    // },
     // {
     //     label: 'System',
     //     items: [
