@@ -43,7 +43,7 @@ class SectionSeeder extends Seeder
                         'section_code' => $subject->code . '-' . $i,
                     ],
                     [
-                        'Faculty_id' => $faculties->isNotEmpty()
+                        'faculty_id' => $faculties->isNotEmpty()
                             ? $faculties->random()->id
                             : null,
 
