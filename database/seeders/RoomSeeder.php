@@ -39,7 +39,7 @@ class RoomSeeder extends Seeder
             for ($i = $data['start']; $i <= $data['end']; $i++) {
 
                 Room::create([
-                    'name' => "{$code} {$i}",
+                    'code' => "{$code} {$i}",
                     'college_id' => $colleges[$code]->id,
                     'capacity' => $data['capacity'],
                 ]);
