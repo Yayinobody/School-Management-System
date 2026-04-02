@@ -2,12 +2,14 @@
 
 **Core**
 
+### Rolind ###
 ### Dashboard
 - Students Card
 - Enrollments Card
 - Sections Card
 - Faculties Card
 
+### Rolind ###
 ### User & Accounts
 User Table
 - name
@@ -32,6 +34,7 @@ Store/Update
 - email
 - role
 
+### Rolind ###
 ### Faculties
 Faculty Table
 - fname
@@ -56,6 +59,7 @@ Store/Update
 - program_code
 - birthday
 
+### Rolind ###
 ### Students
 Student Table
 - fname
@@ -89,6 +93,7 @@ Store/Update
 - year_level
 - birthday
 
+### Rolind ###
 ### College
 College Table
 - code
@@ -104,10 +109,13 @@ View
 - total_faculties
 - total_enrollments
 - total_subjects
+- created_at
+- updated_at
 Store/Update
 - code
 - title
 
+### Rolind ###
 ### Program
 Program Table
 - code
@@ -129,6 +137,7 @@ Store/Update
 - title
 - college_code
 
+### Rolind ###
 ### Subjects
 Subject Table
 - code
@@ -156,6 +165,7 @@ Store/Update
 - lab
 - type
 
+### Joseph ###
 ### School Years
 School Year Table
 - start_date
@@ -174,6 +184,7 @@ Store/Update
 - end_date
 - status
 
+### Joseph ###
 ### Curriculum
 Curriculum Table
 - college_code
@@ -201,6 +212,7 @@ Store/Update
 - year
 - semester
 
+### Joseph ###
 ### Terms and Semester
 Terms and Semester Table
 - start_date
@@ -219,6 +231,7 @@ Store/Update
 - end_date
 - status
 
+### Reynard ###
 ### Enrollment
 Enrollment Table
 - student_number
@@ -242,6 +255,7 @@ Store/Update
 - term_semester
 - student_status
 
+### Reynard ###
 ### Sections
 Section Table
 - section_code
@@ -277,6 +291,7 @@ Store/Update
 Load Student
 - student_number
 
+### Reynard ###
 ### Rooms
 Room Table
 - room_code
