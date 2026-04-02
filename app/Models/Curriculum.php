@@ -13,7 +13,6 @@ class Curriculum extends Model
         "subject_id",
         "year",
         "semester",
-        "type",
     ];
 
     public function program(): BelongsTo
