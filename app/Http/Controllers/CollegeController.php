@@ -21,13 +21,14 @@ class CollegeController extends Controller
                 "title" => $college->title,
                 "total_programs" => $college->programs->count(),
                 "total_rooms" => $college->rooms->count(),
-                "total_faculties" => $college->programs->sum(function ($program) {
-                                return $program->faculties->count();,
+                "total_faculties" => $college->programs->sum(function ($program){
+                    return $program->faculties->count();
+                })
             ];
         });
 
-        return inertia('college'[
-            "data" => $college_data
+        return inertia('college',[
+            "data" => $college_data,
         ]);
 
     }
@@ -55,7 +56,24 @@ class CollegeController extends Controller
      */
     public function show(College $college)
     {
-        //
+         $college->load('programs:id,college_id',
+         'programs.faculties:id,program_id',
+         'programs.enrollments:id,program_id',
+         'programs.subjects:id,program_id');
+
+         $data_college = [
+            "code" => college->code,
+            "title" => college->title,
+            "total_programs" => college->programs->count(),
+            "total_rooms" => college->rooms->count(),
+            "total_faculties" => college->programs->faculties->count(),
+            "total_enrollments" => college->programs->enrollments->count(),
+            "total_subjects" => college->programs->subjects->count(),
+         ];
+
+         return response()->json([
+            "data" => $data_college,
+         ]);
     }
 
     /**
