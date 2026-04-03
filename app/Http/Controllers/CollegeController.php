@@ -85,7 +85,10 @@ class CollegeController extends Controller
 
         $college = update($request);
 
-
+        return response()->json([
+            "message" => "College Updated Succesfully",
+            "data" => $collge,
+        ]);
     }
 
     /**
@@ -93,6 +96,10 @@ class CollegeController extends Controller
      */
     public function destroy(College $college)
     {
-        //
+        $college->delete();
+
+        return response()->json([
+            "message" => "College Deleted Succesfully"
+        ]);
     }
 }
