@@ -79,9 +79,13 @@ class CollegeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, College $college)
+    public function update(StoreCollegeRequest $request, College $college)
     {
-        //
+        $validated = $request->validated();
+
+        $college = update($request);
+
+
     }
 
     /**
