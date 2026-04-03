@@ -110,8 +110,6 @@ View
 - total_faculties
 - total_enrollments
 - total_subjects
-- created_at
-- updated_at
 Store/Update
 - code
 - title
