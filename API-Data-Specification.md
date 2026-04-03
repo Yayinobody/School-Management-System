@@ -91,6 +91,7 @@ Store/Update
 - lname
 - gender
 - year_level
+- program_code
 - birthday
 
 ### Rolind ###
