@@ -120,7 +120,6 @@ Program Table
 - code
 - title
 - college_code
-- total_rooms
 - total_faculties
 - total_enrollments
 View

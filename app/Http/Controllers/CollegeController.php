@@ -13,7 +13,7 @@ class CollegeController extends Controller
      */
     public function index()
     {
-        $colleges = College::with('rooms','programs.faculties')->get();
+        $colleges = College::with(['rooms','programs.faculties'])->get();
         $college_data = $colleges->map(
         function ($college){
             return[
