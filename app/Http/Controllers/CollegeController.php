@@ -83,11 +83,11 @@ class CollegeController extends Controller
     {
         $validated = $request->validated();
 
-        $college = update($request);
+        $college->update($request);
 
         return response()->json([
             "message" => "College Updated Succesfully",
-            "data" => $collge,
+            "data" => $college,
         ]);
     }
 
