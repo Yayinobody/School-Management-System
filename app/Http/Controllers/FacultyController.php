@@ -69,7 +69,9 @@ class FacultyController extends Controller
             'birthday' => $faculty->birthday,
         ];
 
-        dd($data);
+        return response()->json([
+            "data" => $data,
+        ]);
     }
 
 
@@ -79,7 +81,7 @@ class FacultyController extends Controller
     public function update(StoreFacultyRequest $request, Faculty $faculty)
     {
         $validated = $request->validated();
-        $faculty = update($validated);
+        $faculty->update($validated);
 
         return response()->json([
             "message" => "Faculty Updated Succesfully",
