@@ -12,4 +12,7 @@ require __DIR__.'/web/dashboard.php';
 require __DIR__.'/web/users.php';
 require __DIR__.'/web/faculties.php';
 require __DIR__.'/web/students.php';
+require __DIR__.'/web/colleges.php';
+require __DIR__.'/web/programs.php';
+require __DIR__.'/web/subjects.php';
 // require __DIR__.'/norsuai.php';
