@@ -27,8 +27,9 @@ class FacultyController extends Controller
         });
 
         return inertia('faculties',
-        ['data'=>$faculties,
-        ]);
+            [
+                'data'=>$faculties,
+            ]);
     }
 
     /**

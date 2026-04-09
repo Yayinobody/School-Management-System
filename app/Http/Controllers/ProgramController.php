@@ -25,7 +25,7 @@ class ProgramController extends Controller
             ];
         });
 
-        return inertia('program',[ "data" => $program_data,]);
+        // return inertia('program',[ "data" => $program_data,]);
 
     }
 

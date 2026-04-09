@@ -27,9 +27,9 @@ class CollegeController extends Controller
             ];
         });
 
-        return inertia('college',[
-            "data" => $college_data,
-        ]);
+        // return inertia('college',[
+        //     "data" => $college_data,
+        // ]);
 
     }
 
